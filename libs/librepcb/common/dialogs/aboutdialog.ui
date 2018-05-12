@@ -35,7 +35,11 @@
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="aboutContentLayout"/>
+    <layout class="QVBoxLayout" name="aboutContentLayout">
+     <property name="bottomMargin">
+      <number>16</number>
+     </property>
+    </layout>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
