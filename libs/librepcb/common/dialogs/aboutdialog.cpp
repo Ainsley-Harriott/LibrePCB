@@ -12,7 +12,8 @@ AboutDialog::AboutDialog(QWidget* parent, const librepcb::Version& appVersion, c
     connect(mUi->buttonBox, &QDialogButtonBox::clicked,
             this, &AboutDialog::close);
 
-    // Top-align content
+    // Content alignment
+    ui->horizontalLayout->setAlignment(ui->logo, Qt::AlignTop);
     ui->aboutContentLayout->setAlignment(Qt::AlignTop);
 
     // Add content to about dialog
