@@ -21,18 +21,15 @@ AboutDialog::AboutDialog(QWidget* parent, const librepcb::Version& appVersion, c
     QLabel *headerVersion = new QLabel("<b>" + tr("Version") + "</b>");
     QLabel *textVersion = new QLabel(QString("%1 (%2)").arg(appVersion.toPrettyStr(3), gitVersion));
     QLabel *headerLinks = new QLabel("<b>" + tr("Link") + "</b>");
-    QLabel *textLink = new QLabel(tr("Please see <a href='http://librepcb.org/'>librepcb.org</a> for more information."));
-    QLabel *textGithub = new QLabel(tr("You can find the project on GitHub:<br><a href='%1'>%1</a>").arg("https://github.com/LibrePCB/LibrePCB"));
+    QLabel *textLinks = new QLabel(tr("For more information, please check out <a href='%1'>librepcb.org</a><br>or our <a href='%2'>GitHub repository</a>.").arg("http://librepcb.org/", "https://github.com/LibrePCB/LibrePCB"));
     headerVersion->setContentsMargins(0, 16, 0, 0);
     headerLinks->setContentsMargins(0, 16, 0, 0);
-    textLink->setOpenExternalLinks(true);
-    textGithub->setOpenExternalLinks(true);
+    textLinks->setOpenExternalLinks(true);
     ui->aboutContentLayout->addWidget(textIntro);
     ui->aboutContentLayout->addWidget(headerVersion);
     ui->aboutContentLayout->addWidget(textVersion);
     ui->aboutContentLayout->addWidget(headerLinks);
-    ui->aboutContentLayout->addWidget(textLink);
-    ui->aboutContentLayout->addWidget(textGithub);
+    ui->aboutContentLayout->addWidget(textLinks);
 }
 
 AboutDialog::~AboutDialog()
