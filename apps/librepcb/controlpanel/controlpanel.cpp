@@ -429,7 +429,7 @@ void ControlPanel::on_actionAbout_triggered()
     const QString& gitVersion = qApp->getGitVersion();
     const QString& buildDate = qApp->getBuildDate();
     AboutDialog* aboutDialog = new AboutDialog(this, appVersion, gitVersion, buildDate);
-    int result = aboutDialog->exec();
+    aboutDialog->exec();
 }
 
 void ControlPanel::on_actionNew_Project_triggered()
