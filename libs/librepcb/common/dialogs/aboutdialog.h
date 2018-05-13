@@ -60,7 +60,7 @@ class AboutDialog final : public QDialog
         AboutDialog& operator=(const AboutDialog& rhs) = delete;
 
     private: // Data
-        Ui::AboutDialog *mUi;
+        QScopedPointer<Ui::AboutDialog> mUi;
 };
 
 /*****************************************************************************************

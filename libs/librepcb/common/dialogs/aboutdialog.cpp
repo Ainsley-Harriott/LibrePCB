@@ -68,7 +68,6 @@ AboutDialog::AboutDialog(const Version& appVersion, const QString& gitVersion,
 
 AboutDialog::~AboutDialog() noexcept
 {
-    delete mUi;
 }
 
 /*****************************************************************************************
