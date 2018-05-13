@@ -71,6 +71,7 @@ class Application final : public QApplication
         // Getters
         const Version& getAppVersion() const noexcept {return mAppVersion;}
         const QString& getGitVersion() const noexcept {return mGitVersion;}
+        const QString& getBuildDate() const noexcept {return mBuildDate;}
         const Version& getFileFormatVersion() const noexcept {return mFileFormatVersion;}
         const FilePath& getResourcesDir() const noexcept {return mResourcesDir;}
         FilePath getResourcesFilePath(const QString& filepath) const noexcept;
@@ -93,6 +94,7 @@ class Application final : public QApplication
     private: // Data
         Version mAppVersion;
         QString mGitVersion;
+        QString mBuildDate;
         Version mFileFormatVersion;
         FilePath mResourcesDir;
         QScopedPointer<StrokeFontPool> mStrokeFontPool; ///< all application stroke fonts

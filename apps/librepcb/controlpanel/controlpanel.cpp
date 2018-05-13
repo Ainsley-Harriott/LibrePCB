@@ -427,7 +427,8 @@ void ControlPanel::on_actionAbout_triggered()
 {
     const Version& appVersion = qApp->getAppVersion();
     const QString& gitVersion = qApp->getGitVersion();
-    AboutDialog* aboutDialog = new AboutDialog(this, appVersion, gitVersion);
+    const QString& buildDate = qApp->getBuildDate();
+    AboutDialog* aboutDialog = new AboutDialog(this, appVersion, gitVersion, buildDate);
     int result = aboutDialog->exec();
 }
 

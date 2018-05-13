@@ -1,7 +1,7 @@
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
-AboutDialog::AboutDialog(QWidget* parent, const librepcb::Version& appVersion, const QString& gitVersion) :
+AboutDialog::AboutDialog(QWidget* parent, const librepcb::Version& appVersion, const QString& gitVersion, const QString& buildDate) :
     QDialog(parent),
     ui(new Ui::AboutDialog)
 {
@@ -19,7 +19,7 @@ AboutDialog::AboutDialog(QWidget* parent, const librepcb::Version& appVersion, c
     // Add content to about dialog
     QLabel *textIntro = new QLabel(tr("LibrePCB is a free & open source schematic/layout-editor."));
     QLabel *headerVersion = new QLabel("<b>" + tr("Version") + "</b>");
-    QLabel *textVersion = new QLabel(QString("%1 (%2)").arg(appVersion.toPrettyStr(3), gitVersion));
+    QLabel *textVersion = new QLabel(QString("%1 (%2), built on %3.").arg(appVersion.toPrettyStr(3), gitVersion, buildDate));
     QLabel *headerLinks = new QLabel("<b>" + tr("Link") + "</b>");
     QLabel *textLinks = new QLabel(tr("For more information, please check out <a href='%1'>librepcb.org</a><br>or our <a href='%2'>GitHub repository</a>.").arg("http://librepcb.org/", "https://github.com/LibrePCB/LibrePCB"));
     headerVersion->setContentsMargins(0, 16, 0, 0);

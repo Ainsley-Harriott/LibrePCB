@@ -14,7 +14,7 @@ class AboutDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AboutDialog(QWidget* parent, const librepcb::Version& appVersion, const QString& gitVersion);
+    explicit AboutDialog(QWidget* parent, const librepcb::Version& appVersion, const QString& gitVersion, const QString& buildDate);
     ~AboutDialog();
 
 private:
