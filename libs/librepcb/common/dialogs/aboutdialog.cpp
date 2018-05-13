@@ -40,9 +40,11 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     connect(mUi->buttonBox, &QDialogButtonBox::clicked,
             this, &AboutDialog::close);
 
-    // Content alignment
+    // Layout
     mUi->horizontalLayout->setAlignment(mUi->logo, Qt::AlignTop);
-    mUi->aboutContentLayout->setAlignment(Qt::AlignTop);
+    mUi->tabGeneralLayout->setAlignment(Qt::AlignTop);
+    mUi->tabContributingLayout->setAlignment(Qt::AlignTop);
+    mUi->logo->setContentsMargins(0, 0, 8, 0);
 
     // Get some version information
     const Version& appVersion = qApp->getAppVersion();
@@ -52,15 +54,29 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     // Dynamic text
     mUi->textVersion->setText(QString("%1 (%2)<br>Build date: %3").arg(appVersion.toPrettyStr(3), gitVersion, buildDate));
     mUi->textLinks->setText(tr("For more information, please check out <a href='%1'>librepcb.org</a> or our <a href='%2'>GitHub repository</a>.").arg("http://librepcb.org/", "https://github.com/LibrePCB/LibrePCB"));
+    mUi->textContributeFinancially->setText(
+        tr("Support sustainable development of LibrePCB by donating financially, either via <a href='%1'>Patreon</a> or via <a href='%2'>Bitcoin</a>!")
+        .arg("https://www.patreon.com/librepcb", "bitcoin:1FiXZxoXe3px1nNuNygRb1NwcYr6U8AvG8")
+    );
+    mUi->textContributeCode->setText(
+        tr("Check out our <a href='%1'>Contribution Guidelines</a> if you're interested in development of LibrePCB!")
+        .arg("https://github.com/LibrePCB/LibrePCB/blob/master/CONTRIBUTING.md")
+    );
 
     // Format content
     formatLabelHeading(mUi->headerVersion);
     formatLabelHeading(mUi->headerLinks);
     formatLabelHeading(mUi->headerLicense);
+    formatLabelHeading(mUi->headerContributeFinancially);
+    formatLabelHeading(mUi->headerContributeCode);
+    formatLabelHeading(mUi->headerContributeShare);
     formatLabelText(mUi->textIntro, false, false);
     formatLabelText(mUi->textVersion, true, false);
     formatLabelText(mUi->textLinks, false, true);
     formatLabelText(mUi->textLicense, false, true);
+    formatLabelText(mUi->textContributeFinancially, false, true);
+    formatLabelText(mUi->textContributeCode, false, true);
+    formatLabelText(mUi->textContributeShare, false, false);
 }
 
 /**

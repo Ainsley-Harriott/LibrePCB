@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>443</width>
-    <height>302</height>
+    <width>482</width>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,42 +17,48 @@
    <item>
     <widget class="QLabel" name="heading">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
+       <pointsize>16</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>About LibrePCB</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="topMargin">
-      <number>16</number>
+      <number>8</number>
      </property>
      <property name="bottomMargin">
-      <number>16</number>
+      <number>8</number>
      </property>
      <item>
       <widget class="QLabel" name="logo">
        <property name="minimumSize">
         <size>
-         <width>64</width>
+         <width>72</width>
          <height>64</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>64</width>
+         <width>72</width>
          <height>64</height>
         </size>
        </property>
@@ -65,63 +71,164 @@
        <property name="scaledContents">
         <bool>true</bool>
        </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="aboutContentLayout">
-       <property name="leftMargin">
-        <number>8</number>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
-       <item>
-        <widget class="QLabel" name="textIntro">
-         <property name="text">
-          <string>LibrePCB is a free &amp; open source schematic/layout-editor.</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="headerVersion">
-         <property name="text">
-          <string>Version Info</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="textVersion">
-         <property name="text">
-          <string notr="true">TEXT_VERSION</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="headerLinks">
-         <property name="text">
-          <string notr="true">Links</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="textLinks">
-         <property name="text">
-          <string notr="true">TEXT_LINKS</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="headerLicense">
-         <property name="text">
-          <string notr="true">License</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="textLicense">
-         <property name="text">
-          <string>LibrePCB is free software, released under the GNU General&lt;br&gt;Public License (GPL) version 3 or later. You can find the full&lt;br&gt;license text &lt;a href='https://github.com/LibrePCB/LibrePCB/blob/master/LICENSE.txt'&gt;in our source code&lt;/a&gt;.</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+       <property name="minimumSize">
+        <size>
+         <width>387</width>
+         <height>280</height>
+        </size>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tabGeneral">
+        <attribute name="title">
+         <string>General</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <layout class="QVBoxLayout" name="tabGeneralLayout">
+           <item>
+            <widget class="QLabel" name="textIntro">
+             <property name="text">
+              <string>LibrePCB is a free &amp; open source schematic/layout-editor.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="headerVersion">
+             <property name="text">
+              <string>Version Info</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="textVersion">
+             <property name="text">
+              <string notr="true">TEXT_VERSION</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="headerLinks">
+             <property name="text">
+              <string notr="true">Links</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="textLinks">
+             <property name="text">
+              <string notr="true">TEXT_LINKS</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="headerLicense">
+             <property name="text">
+              <string notr="true">License</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="textLicense">
+             <property name="text">
+              <string>LibrePCB is free software, released under the GNU General Public License (GPL) version 3 or later. You can find the full license text &lt;a href=&quot;https://github.com/LibrePCB/LibrePCB/blob/master/LICENSE.txt&quot;&gt;in our source code&lt;/a&gt;.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tabContributing">
+        <attribute name="title">
+         <string>Contributing</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <layout class="QVBoxLayout" name="tabContributingLayout">
+           <item>
+            <widget class="QLabel" name="textContributingIntro">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;LibrePCB is a community project, and therefore it relies on contributions! There are different ways you can contribute:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="headerContributeFinancially">
+             <property name="text">
+              <string>Donate</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="textContributeFinancially">
+             <property name="text">
+              <string notr="true">TEXT_CONTRIBUTE_FINANCIALLY</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="headerContributeCode">
+             <property name="text">
+              <string>Contribute Code</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="textContributeCode">
+             <property name="text">
+              <string>TEXT_CONTRIBUTE_CODE</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="headerContributeShare">
+             <property name="text">
+              <string>Spread The Word</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="textContributeShare">
+             <property name="text">
+              <string>Speak about LibrePCB with your friends and colleagues, or write about it in the internet! Write a blogpost, or create a video tutorial. We're happy if more people can get to know LibrePCB.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
      </item>
     </layout>
    </item>
@@ -146,22 +253,5 @@
  <resources>
   <include location="../../../../img/images.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>clicked()</signal>
-   <receiver>librepcb::AboutDialog</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
