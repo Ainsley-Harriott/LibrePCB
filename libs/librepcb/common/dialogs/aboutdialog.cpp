@@ -57,12 +57,13 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     QLabel *textLinks = new QLabel(tr("For more information, please check out <a href='%1'>librepcb.org</a><br>or our <a href='%2'>GitHub repository</a>.").arg("http://librepcb.org/", "https://github.com/LibrePCB/LibrePCB"));
     QLabel *headerLicense = new QLabel("<b>" + tr("License") + "</b>");
     QLabel *textLicense = new QLabel(tr("LibrePCB is free software, released under the GNU General<br>Public License (GPL) version 3 or later. You can find the full<br>license text <a href='https://github.com/LibrePCB/LibrePCB/blob/master/LICENSE.txt'>in our source code</a>."));
-    int headerMarginTop = 8;
-    headerVersion->setContentsMargins(0, headerMarginTop, 0, 0);
-    headerLinks->setContentsMargins(0, headerMarginTop, 0, 0);
-    headerLicense->setContentsMargins(0, headerMarginTop, 0, 0);
-    textLinks->setOpenExternalLinks(true);
-    textLicense->setOpenExternalLinks(true);
+    formatLabelHeading(headerVersion);
+    formatLabelHeading(headerLinks);
+    formatLabelHeading(headerLicense);
+    formatLabelText(textIntro);
+    formatLabelText(textVersion);
+    formatLabelText(textLinks);
+    formatLabelText(textLicense);
     mUi->aboutContentLayout->addWidget(textIntro);
     mUi->aboutContentLayout->addWidget(headerVersion);
     mUi->aboutContentLayout->addWidget(textVersion);
@@ -70,6 +71,26 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     mUi->aboutContentLayout->addWidget(textLinks);
     mUi->aboutContentLayout->addWidget(headerLicense);
     mUi->aboutContentLayout->addWidget(textLicense);
+}
+
+/**
+ * @brief Format a heading label in the about dialog.
+ * @param label Pointer to the QLabel instance
+ */
+void AboutDialog::formatLabelHeading(QLabel* label) noexcept
+{
+    int headerMarginTop = 8;
+    label->setContentsMargins(0, headerMarginTop, 0, 0);
+}
+
+/**
+ * @brief Format a text label in the about dialog.
+ * @param label Pointer to the QLabel instance
+ */
+void AboutDialog::formatLabelText(QLabel* label) noexcept
+{
+    label->setOpenExternalLinks(true);
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
 }
 
 AboutDialog::~AboutDialog() noexcept

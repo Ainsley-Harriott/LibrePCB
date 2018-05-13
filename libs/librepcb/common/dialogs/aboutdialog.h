@@ -25,6 +25,7 @@
  ****************************************************************************************/
 #include <QDialog>
 #include <QAbstractButton>
+#include <QLabel>
 #include "../version.h"
 
 /*****************************************************************************************
@@ -57,6 +58,10 @@ class AboutDialog final : public QDialog
 
         // Operator Overloadings
         AboutDialog& operator=(const AboutDialog& rhs) = delete;
+
+    private: // Methods
+        void formatLabelHeading(QLabel* label) noexcept;
+        void formatLabelText(QLabel* label) noexcept;
 
     private: // Data
         QScopedPointer<Ui::AboutDialog> mUi;
