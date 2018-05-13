@@ -52,7 +52,7 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     // Add content to about dialog
     QLabel *textIntro = new QLabel(tr("LibrePCB is a free & open source schematic/layout-editor."));
     QLabel *headerVersion = new QLabel("<b>" + tr("Version Info") + "</b>");
-    QLabel *textVersion = new QLabel(QString("%1 (%2), built on %3.").arg(appVersion.toPrettyStr(3), gitVersion, buildDate));
+    QLabel *textVersion = new QLabel(QString("%1 (%2)<br>Build date: %3").arg(appVersion.toPrettyStr(3), gitVersion, buildDate));
     QLabel *headerLinks = new QLabel("<b>" + tr("Links") + "</b>");
     QLabel *textLinks = new QLabel(tr("For more information, please check out <a href='%1'>librepcb.org</a><br>or our <a href='%2'>GitHub repository</a>.").arg("http://librepcb.org/", "https://github.com/LibrePCB/LibrePCB"));
     QLabel *headerLicense = new QLabel("<b>" + tr("License") + "</b>");
