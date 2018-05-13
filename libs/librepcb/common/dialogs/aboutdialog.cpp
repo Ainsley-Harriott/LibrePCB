@@ -1,20 +1,48 @@
+/*
+ * LibrePCB - Professional EDA for everyone!
+ * Copyright (C) 2018 LibrePCB Developers, see AUTHORS.md for contributors.
+ * http://librepcb.org/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*****************************************************************************************
+ *  Includes
+ ****************************************************************************************/
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
-AboutDialog::AboutDialog(QWidget* parent, const librepcb::Version& appVersion, const QString& gitVersion, const QString& buildDate) :
+/*****************************************************************************************
+ *  Namespace
+ ****************************************************************************************/
+namespace librepcb {
+
+AboutDialog::AboutDialog(const Version& appVersion, const QString& gitVersion,
+                         const QString& buildDate, QWidget* parent) noexcept :
     QDialog(parent),
-    ui(new Ui::AboutDialog)
+    mUi(new Ui::AboutDialog)
 {
     // Set up base dialog
-    ui->setupUi(this);
+    mUi->setupUi(this);
 
     // Event handlers
     connect(mUi->buttonBox, &QDialogButtonBox::clicked,
             this, &AboutDialog::close);
 
     // Content alignment
-    ui->horizontalLayout->setAlignment(ui->logo, Qt::AlignTop);
-    ui->aboutContentLayout->setAlignment(Qt::AlignTop);
+    mUi->horizontalLayout->setAlignment(mUi->logo, Qt::AlignTop);
+    mUi->aboutContentLayout->setAlignment(Qt::AlignTop);
 
     // Add content to about dialog
     QLabel *textIntro = new QLabel(tr("LibrePCB is a free & open source schematic/layout-editor."));
@@ -29,16 +57,22 @@ AboutDialog::AboutDialog(QWidget* parent, const librepcb::Version& appVersion, c
     headerLicense->setContentsMargins(0, 16, 0, 0);
     textLinks->setOpenExternalLinks(true);
     textLicense->setOpenExternalLinks(true);
-    ui->aboutContentLayout->addWidget(textIntro);
-    ui->aboutContentLayout->addWidget(headerVersion);
-    ui->aboutContentLayout->addWidget(textVersion);
-    ui->aboutContentLayout->addWidget(headerLinks);
-    ui->aboutContentLayout->addWidget(textLinks);
-    ui->aboutContentLayout->addWidget(headerLicense);
-    ui->aboutContentLayout->addWidget(textLicense);
+    mUi->aboutContentLayout->addWidget(textIntro);
+    mUi->aboutContentLayout->addWidget(headerVersion);
+    mUi->aboutContentLayout->addWidget(textVersion);
+    mUi->aboutContentLayout->addWidget(headerLinks);
+    mUi->aboutContentLayout->addWidget(textLinks);
+    mUi->aboutContentLayout->addWidget(headerLicense);
+    mUi->aboutContentLayout->addWidget(textLicense);
 }
 
-AboutDialog::~AboutDialog()
+AboutDialog::~AboutDialog() noexcept
 {
-    delete ui;
+    delete mUi;
 }
+
+/*****************************************************************************************
+ *  End of File
+ ****************************************************************************************/
+
+} // namespace librepcb

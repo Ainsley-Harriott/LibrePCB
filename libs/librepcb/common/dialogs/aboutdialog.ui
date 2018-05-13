@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AboutDialog</class>
- <widget class="QDialog" name="AboutDialog">
+ <class>librepcb::AboutDialog</class>
+ <widget class="QDialog" name="librepcb::AboutDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>About LibrePCB</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="heading">
      <property name="sizePolicy">
@@ -99,7 +99,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>clicked()</signal>
-   <receiver>AboutDialog</receiver>
+   <receiver>librepcb::AboutDialog</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
