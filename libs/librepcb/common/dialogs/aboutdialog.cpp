@@ -49,28 +49,21 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     const QString& gitVersion = qApp->getGitVersion();
     const QString& buildDate = qApp->getBuildDate().toString("yyyy-MM-dd hh:mm:ss (t)");
 
-    // Add content to about dialog
-    QLabel *textIntro = new QLabel(tr("LibrePCB is a free & open source schematic/layout-editor."));
-    QLabel *headerVersion = new QLabel("<b>" + tr("Version Info") + "</b>");
-    QLabel *textVersion = new QLabel(QString("%1 (%2)<br>Build date: %3").arg(appVersion.toPrettyStr(3), gitVersion, buildDate));
-    QLabel *headerLinks = new QLabel("<b>" + tr("Links") + "</b>");
-    QLabel *textLinks = new QLabel(tr("For more information, please check out <a href='%1'>librepcb.org</a><br>or our <a href='%2'>GitHub repository</a>.").arg("http://librepcb.org/", "https://github.com/LibrePCB/LibrePCB"));
-    QLabel *headerLicense = new QLabel("<b>" + tr("License") + "</b>");
-    QLabel *textLicense = new QLabel(tr("LibrePCB is free software, released under the GNU General<br>Public License (GPL) version 3 or later. You can find the full<br>license text <a href='https://github.com/LibrePCB/LibrePCB/blob/master/LICENSE.txt'>in our source code</a>."));
-    formatLabelHeading(headerVersion);
-    formatLabelHeading(headerLinks);
-    formatLabelHeading(headerLicense);
-    formatLabelText(textIntro);
-    formatLabelText(textVersion);
-    formatLabelText(textLinks);
-    formatLabelText(textLicense);
-    mUi->aboutContentLayout->addWidget(textIntro);
-    mUi->aboutContentLayout->addWidget(headerVersion);
-    mUi->aboutContentLayout->addWidget(textVersion);
-    mUi->aboutContentLayout->addWidget(headerLinks);
-    mUi->aboutContentLayout->addWidget(textLinks);
-    mUi->aboutContentLayout->addWidget(headerLicense);
-    mUi->aboutContentLayout->addWidget(textLicense);
+    // Dynamic text
+    mUi->headerVersion->setText("<b>" + tr("Version Info") + "</b>");
+    mUi->textVersion->setText(QString("%1 (%2)<br>Build date: %3").arg(appVersion.toPrettyStr(3), gitVersion, buildDate));
+    mUi->headerLinks->setText("<b>" + tr("Links") + "</b>");
+    mUi->textLinks->setText(tr("For more information, please check out <a href='%1'>librepcb.org</a> or our <a href='%2'>GitHub repository</a>.").arg("http://librepcb.org/", "https://github.com/LibrePCB/LibrePCB"));
+    mUi->headerLicense->setText("<b>" + tr("License") + "</b>");
+
+    // Format content
+    formatLabelHeading(mUi->headerVersion);
+    formatLabelHeading(mUi->headerLinks);
+    formatLabelHeading(mUi->headerLicense);
+    formatLabelText(mUi->textIntro, false, false);
+    formatLabelText(mUi->textVersion, true, false);
+    formatLabelText(mUi->textLinks, false, true);
+    formatLabelText(mUi->textLicense, false, true);
 }
 
 /**
@@ -86,11 +79,18 @@ void AboutDialog::formatLabelHeading(QLabel* label) noexcept
 /**
  * @brief Format a text label in the about dialog.
  * @param label Pointer to the QLabel instance
+ * @param selectable Whether to make the text mouse-selectable
+ * @param containsLinks Whether to open links in external application (e.g. web browser)
  */
-void AboutDialog::formatLabelText(QLabel* label) noexcept
+void AboutDialog::formatLabelText(QLabel* label, bool selectable, bool containsLinks) noexcept
 {
-    label->setOpenExternalLinks(true);
-    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    label->setOpenExternalLinks(containsLinks);
+    if (selectable) {
+        label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+        if (containsLinks) {
+            qWarning() << "If text is selectable, external links won't work anymore!";
+        }
+    }
 }
 
 AboutDialog::~AboutDialog() noexcept

@@ -61,7 +61,7 @@ class AboutDialog final : public QDialog
 
     private: // Methods
         void formatLabelHeading(QLabel* label) noexcept;
-        void formatLabelText(QLabel* label) noexcept;
+        void formatLabelText(QLabel* label, bool selectable, bool containsLinks) noexcept;
 
     private: // Data
         QScopedPointer<Ui::AboutDialog> mUi;

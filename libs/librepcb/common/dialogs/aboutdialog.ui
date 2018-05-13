@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>443</width>
+    <height>302</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,6 +72,55 @@
        <property name="leftMargin">
         <number>8</number>
        </property>
+       <item>
+        <widget class="QLabel" name="textIntro">
+         <property name="text">
+          <string>LibrePCB is a free &amp; open source schematic/layout-editor.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="headerVersion">
+         <property name="text">
+          <string notr="true">HEADER_VERSION_INFO</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="textVersion">
+         <property name="text">
+          <string notr="true">TEXT_VERSION</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="headerLinks">
+         <property name="text">
+          <string notr="true">HEADER_LINKS</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="textLinks">
+         <property name="text">
+          <string notr="true">TEXT_LINKS</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="headerLicense">
+         <property name="text">
+          <string notr="true">HEADER_LICENSE</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="textLicense">
+         <property name="text">
+          <string>LibrePCB is free software, released under the GNU General&lt;br&gt;Public License (GPL) version 3 or later. You can find the full&lt;br&gt;license text &lt;a href='https://github.com/LibrePCB/LibrePCB/blob/master/LICENSE.txt'&gt;in our source code&lt;/a&gt;.</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
