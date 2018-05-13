@@ -47,7 +47,7 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     // Get some version information
     const Version& appVersion = qApp->getAppVersion();
     const QString& gitVersion = qApp->getGitVersion();
-    const QString& buildDate = qApp->getBuildDate();
+    const QString& buildDate = qApp->getBuildDate().toString("yyyy-MM-dd hh:mm:ss (t)");
 
     // Add content to about dialog
     QLabel *textIntro = new QLabel(tr("LibrePCB is a free & open source schematic/layout-editor."));

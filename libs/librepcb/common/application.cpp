@@ -54,9 +54,9 @@ Application::Application(int& argc, char** argv) noexcept :
     }
 
     // set build timestamp
-    mBuildDate = QString("%1 %2")
-        .arg(QLocale(QLocale::C).toDate(QString(__DATE__).simplified(), QLatin1String("MMM d yyyy")).toString("yyyy-MM-dd"))
-        .arg(QString(__TIME__));
+    QDate buildDate = QLocale(QLocale::C).toDate(QString(__DATE__).simplified(), QLatin1String("MMM d yyyy"));
+    QTime buildTime = QTime::fromString(__TIME__, Qt::TextDate);
+    mBuildDate = QDateTime(buildDate, buildTime);
 
     // set and verify file format version
     mFileFormatVersion = Version(FILE_FORMAT_VERSION);
