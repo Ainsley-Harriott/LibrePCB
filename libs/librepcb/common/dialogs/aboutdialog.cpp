@@ -50,11 +50,8 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     const QString& buildDate = qApp->getBuildDate().toString("yyyy-MM-dd hh:mm:ss (t)");
 
     // Dynamic text
-    mUi->headerVersion->setText("<b>" + tr("Version Info") + "</b>");
     mUi->textVersion->setText(QString("%1 (%2)<br>Build date: %3").arg(appVersion.toPrettyStr(3), gitVersion, buildDate));
-    mUi->headerLinks->setText("<b>" + tr("Links") + "</b>");
     mUi->textLinks->setText(tr("For more information, please check out <a href='%1'>librepcb.org</a> or our <a href='%2'>GitHub repository</a>.").arg("http://librepcb.org/", "https://github.com/LibrePCB/LibrePCB"));
-    mUi->headerLicense->setText("<b>" + tr("License") + "</b>");
 
     // Format content
     formatLabelHeading(mUi->headerVersion);
@@ -74,6 +71,7 @@ void AboutDialog::formatLabelHeading(QLabel* label) noexcept
 {
     int headerMarginTop = 8;
     label->setContentsMargins(0, headerMarginTop, 0, 0);
+    label->setStyleSheet("font-weight: bold;");
 }
 
 /**

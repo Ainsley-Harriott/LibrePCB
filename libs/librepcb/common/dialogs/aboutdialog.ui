@@ -82,7 +82,7 @@
        <item>
         <widget class="QLabel" name="headerVersion">
          <property name="text">
-          <string notr="true">HEADER_VERSION_INFO</string>
+          <string>Version Info</string>
          </property>
         </widget>
        </item>
@@ -96,7 +96,7 @@
        <item>
         <widget class="QLabel" name="headerLinks">
          <property name="text">
-          <string notr="true">HEADER_LINKS</string>
+          <string notr="true">Links</string>
          </property>
         </widget>
        </item>
@@ -110,7 +110,7 @@
        <item>
         <widget class="QLabel" name="headerLicense">
          <property name="text">
-          <string notr="true">HEADER_LICENSE</string>
+          <string notr="true">License</string>
          </property>
         </widget>
        </item>
