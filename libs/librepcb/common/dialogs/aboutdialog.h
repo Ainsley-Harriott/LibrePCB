@@ -52,8 +52,7 @@ class AboutDialog final : public QDialog
         // Constructors / Destructor
         AboutDialog() = delete;
         AboutDialog(const AboutDialog& other) = delete;
-        AboutDialog(const Version& appVersion, const QString& gitVersion,
-                    const QString& buildDate, QWidget* parent = nullptr) noexcept;
+        explicit AboutDialog(QWidget* parent = nullptr) noexcept;
         ~AboutDialog() noexcept;
 
         // Operator Overloadings

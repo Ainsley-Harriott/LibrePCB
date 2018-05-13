@@ -22,14 +22,14 @@
  ****************************************************************************************/
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
+#include <librepcb/common/application.h>
 
 /*****************************************************************************************
  *  Namespace
  ****************************************************************************************/
 namespace librepcb {
 
-AboutDialog::AboutDialog(const Version& appVersion, const QString& gitVersion,
-                         const QString& buildDate, QWidget* parent) noexcept :
+AboutDialog::AboutDialog(QWidget* parent) noexcept :
     QDialog(parent),
     mUi(new Ui::AboutDialog)
 {
@@ -43,6 +43,11 @@ AboutDialog::AboutDialog(const Version& appVersion, const QString& gitVersion,
     // Content alignment
     mUi->horizontalLayout->setAlignment(mUi->logo, Qt::AlignTop);
     mUi->aboutContentLayout->setAlignment(Qt::AlignTop);
+
+    // Get some version information
+    const Version& appVersion = qApp->getAppVersion();
+    const QString& gitVersion = qApp->getGitVersion();
+    const QString& buildDate = qApp->getBuildDate();
 
     // Add content to about dialog
     QLabel *textIntro = new QLabel(tr("LibrePCB is a free & open source schematic/layout-editor."));
