@@ -88,7 +88,6 @@ void AboutDialog::formatLabelHeading(QLabel* label) noexcept
 {
     int headerMarginTop = 8;
     label->setContentsMargins(0, headerMarginTop, 0, 0);
-    label->setStyleSheet("font-weight: bold;");
 }
 
 /**

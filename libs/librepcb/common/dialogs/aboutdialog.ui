@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>482</width>
-    <height>368</height>
+    <width>583</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -109,6 +109,12 @@
            </item>
            <item>
             <widget class="QLabel" name="headerVersion">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Version Info</string>
              </property>
@@ -123,6 +129,12 @@
            </item>
            <item>
             <widget class="QLabel" name="headerLinks">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string notr="true">Links</string>
              </property>
@@ -137,6 +149,12 @@
            </item>
            <item>
             <widget class="QLabel" name="headerLicense">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string notr="true">License</string>
              </property>
@@ -175,6 +193,12 @@
            </item>
            <item>
             <widget class="QLabel" name="headerContributeFinancially">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Donate</string>
              </property>
@@ -192,6 +216,12 @@
            </item>
            <item>
             <widget class="QLabel" name="headerContributeCode">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Contribute Code</string>
              </property>
@@ -209,6 +239,12 @@
            </item>
            <item>
             <widget class="QLabel" name="headerContributeShare">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Spread The Word</string>
              </property>
