@@ -41,6 +41,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="textVersion">
+     <property name="text">
+      <string notr="true">TEXT_VERSION</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="sizeConstraint">
       <enum>QLayout::SetMinimumSize</enum>
@@ -104,26 +114,6 @@
             <widget class="QLabel" name="textIntro">
              <property name="text">
               <string>LibrePCB is a free &amp; open source schematic/layout-editor.</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="headerVersion">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Version Info</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="textVersion">
-             <property name="text">
-              <string notr="true">TEXT_VERSION</string>
              </property>
             </widget>
            </item>
