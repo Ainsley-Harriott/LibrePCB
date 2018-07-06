@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>563</width>
-    <height>435</height>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -113,7 +113,10 @@
            <item>
             <widget class="QLabel" name="textIntro">
              <property name="text">
-              <string>LibrePCB is a free &amp; open source schematic/layout-editor.</string>
+              <string>LibrePCB is a free &amp;amp; open source schematic/layout-editor. It is mainly developed by Urban Bruhin, with &lt;a href=&quot;https://github.com/LibrePCB/LibrePCB/graphs/contributors&quot;&gt;over a dozen other contributors&lt;/a&gt;!</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
              </property>
             </widget>
            </item>

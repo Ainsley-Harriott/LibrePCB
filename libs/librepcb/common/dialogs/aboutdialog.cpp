@@ -68,7 +68,7 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
     formatLabelHeading(mUi->headerContributeFinancially);
     formatLabelHeading(mUi->headerContributeCode);
     formatLabelHeading(mUi->headerContributeShare);
-    formatLabelText(mUi->textIntro, false, false);
+    formatLabelText(mUi->textIntro, false, true);
     formatLabelText(mUi->textVersion, true, false);
     formatLabelText(mUi->textLinks, false, true);
     formatLabelText(mUi->textLicense, false, true);
