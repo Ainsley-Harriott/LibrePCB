@@ -34,6 +34,7 @@
 #include <librepcb/project/boards/board.h>
 #include <librepcb/project/boards/items/bi_plane.h>
 #include <librepcb/project/circuit/circuit.h>
+#include <librepcb/common/dialogs/aboutdialog.h>
 #include <librepcb/common/dialogs/gridsettingsdialog.h>
 #include <librepcb/common/dialogs/boarddesignrulesdialog.h>
 #include "../dialogs/projectpropertieseditordialog.h"
@@ -110,6 +111,7 @@ BoardEditor::BoardEditor(ProjectEditor& projectEditor, Project& project) :
     // connect some actions which are created with the Qt Designer
     connect(mUi->actionProjectSave, &QAction::triggered, &mProjectEditor, &ProjectEditor::saveProject);
     connect(mUi->actionQuit, &QAction::triggered, this, &BoardEditor::close);
+    connect(mUi->actionAbout, &QAction::triggered, this, &BoardEditor::on_actionAbout_triggered);
     connect(mUi->actionAboutQt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(mUi->actionZoomIn, &QAction::triggered, mGraphicsView, &GraphicsView::zoomIn);
     connect(mUi->actionZoomOut, &QAction::triggered, mGraphicsView, &GraphicsView::zoomOut);
@@ -499,6 +501,12 @@ void BoardEditor::on_actionRebuildPlanes_triggered()
         board->rebuildAllPlanes();
         board->forceAirWiresRebuild();
     }
+}
+
+void BoardEditor::on_actionAbout_triggered() noexcept
+{
+    AboutDialog aboutDialog(this);
+    aboutDialog.exec();
 }
 
 void BoardEditor::on_tabBar_currentChanged(int index)

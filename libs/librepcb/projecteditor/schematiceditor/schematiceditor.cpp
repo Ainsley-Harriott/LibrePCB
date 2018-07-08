@@ -37,6 +37,7 @@
 #include "../docks/ercmsgdock.h"
 #include "fsm/ses_fsm.h"
 #include <librepcb/project/circuit/circuit.h>
+#include <librepcb/common/dialogs/aboutdialog.h>
 #include <librepcb/common/dialogs/gridsettingsdialog.h>
 #include "../dialogs/projectpropertieseditordialog.h"
 #include <librepcb/project/settings/projectsettings.h>
@@ -88,6 +89,7 @@ SchematicEditor::SchematicEditor(ProjectEditor& projectEditor, Project& project)
     // connect some actions which are created with the Qt Designer
     connect(mUi->actionSave_Project, &QAction::triggered, &mProjectEditor, &ProjectEditor::saveProject);
     connect(mUi->actionQuit, &QAction::triggered, this, &SchematicEditor::close);
+    connect(mUi->actionAbout, &QAction::triggered, this, &SchematicEditor::on_actionAbout_triggered);
     connect(mUi->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(mUi->actionZoom_In, &QAction::triggered, mGraphicsView, &GraphicsView::zoomIn);
     connect(mUi->actionZoom_Out, &QAction::triggered, mGraphicsView, &GraphicsView::zoomOut);
@@ -386,6 +388,12 @@ void SchematicEditor::on_actionUpdateLibrary_triggered()
 {
     // ugly hack until we have a *real* project library updater...
     emit mProjectEditor.openProjectLibraryUpdaterClicked(mProject.getFilepath());
+}
+
+void SchematicEditor::on_actionAbout_triggered() noexcept
+{
+    AboutDialog aboutDialog(this);
+    aboutDialog.exec();
 }
 
 /*****************************************************************************************

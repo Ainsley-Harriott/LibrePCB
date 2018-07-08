@@ -25,6 +25,7 @@
 #include <QtWidgets>
 #include "libraryeditor.h"
 #include "ui_libraryeditor.h"
+#include <librepcb/common/dialogs/aboutdialog.h>
 #include <librepcb/common/fileio/fileutils.h>
 #include <librepcb/common/utils/undostackactiongroup.h>
 #include <librepcb/common/utils/exclusiveactiongroup.h>
@@ -85,6 +86,10 @@ LibraryEditor::LibraryEditor(workspace::Workspace& ws, QSharedPointer<Library> l
             this, &LibraryEditor::currentTabChanged);
     connect(mUi->tabWidget, &QTabWidget::tabCloseRequested,
             this, &LibraryEditor::tabCloseRequested);
+    connect(mUi->actionAbout, &QAction::triggered,
+            this, &LibraryEditor::actionAboutTriggered);
+    connect(mUi->actionAbout_Qt, &QAction::triggered,
+            qApp, &QApplication::aboutQt);
 
     // lock the library directory
     mLock.tryLock(); // can throw
@@ -474,6 +479,12 @@ void LibraryEditor::cursorPositionChanged(const Point& pos) noexcept
 {
     mUi->statusBar->showMessage(
         QString("(%1mm | %2mm)").arg(pos.toMmQPointF().x()).arg(pos.toMmQPointF().y()));
+}
+
+void LibraryEditor::actionAboutTriggered() noexcept
+{
+    AboutDialog aboutDialog(this);
+    aboutDialog.exec();
 }
 
 /*****************************************************************************************

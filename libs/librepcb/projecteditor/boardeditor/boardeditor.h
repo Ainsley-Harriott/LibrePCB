@@ -112,6 +112,7 @@ class BoardEditor final : public QMainWindow, public IF_GraphicsViewEventHandler
         void on_actionLayerStackSetup_triggered();
         void on_actionModifyDesignRules_triggered();
         void on_actionRebuildPlanes_triggered();
+        void on_actionAbout_triggered() noexcept;
         void on_tabBar_currentChanged(int index);
         void boardListActionGroupTriggered(QAction* action);
 

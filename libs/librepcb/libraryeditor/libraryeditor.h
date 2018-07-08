@@ -148,6 +148,7 @@ class LibraryEditor final : public QMainWindow, public IF_GraphicsLayerProvider
         void currentTabChanged(int index) noexcept;
         bool tabCloseRequested(int index) noexcept;
         void cursorPositionChanged(const Point& pos) noexcept;
+        void actionAboutTriggered() noexcept;
 
 
     private: // Methods

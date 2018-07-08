@@ -425,8 +425,8 @@ void ControlPanel::projectEditorClosed() noexcept
 
 void ControlPanel::on_actionAbout_triggered()
 {
-    AboutDialog* aboutDialog = new AboutDialog(this);
-    aboutDialog->exec();
+    AboutDialog aboutDialog(this);
+    aboutDialog.exec();
 }
 
 void ControlPanel::on_actionNew_Project_triggered()
