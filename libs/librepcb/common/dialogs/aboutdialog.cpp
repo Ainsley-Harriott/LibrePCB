@@ -42,8 +42,6 @@ AboutDialog::AboutDialog(QWidget* parent) noexcept :
 
     // Layout
     mUi->tabWidget->setCurrentIndex(0);
-    mUi->horizontalLayout->setAlignment(mUi->logo, Qt::AlignTop);
-    mUi->logo->setContentsMargins(0, 0, 8, 0);
 
     // Get some version information
     const Version& appVersion = qApp->getAppVersion();

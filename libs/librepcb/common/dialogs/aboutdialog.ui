@@ -7,13 +7,51 @@
     <x>0</x>
     <y>0</y>
     <width>563</width>
-    <height>477</height>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>About LibrePCB</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="logo">
+       <property name="minimumSize">
+        <size>
+         <width>64</width>
+         <height>64</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>64</width>
+         <height>64</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../../../../img/images.qrc">:/img/app/librepcb.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item>
     <widget class="QLabel" name="heading">
      <property name="sizePolicy">
@@ -61,34 +99,6 @@
      <property name="bottomMargin">
       <number>8</number>
      </property>
-     <item>
-      <widget class="QLabel" name="logo">
-       <property name="minimumSize">
-        <size>
-         <width>72</width>
-         <height>64</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>72</width>
-         <height>64</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../../../../img/images.qrc">:/img/app/librepcb.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-       <property name="margin">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="sizePolicy">
