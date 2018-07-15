@@ -50,9 +50,9 @@ ComponentSignalInstance::ComponentSignalInstance(Circuit& circuit, ComponentInst
     mComponentSignal(nullptr), mIsAddedToCircuit(false), mNetSignal(nullptr)
 {
     // read attributes
-    Uuid compSignalUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    Uuid compSignalUuid = node.getChildByIndex(0).getValue<Uuid>();
     mComponentSignal = mComponentInstance.getLibComponent().getSignals().get(compSignalUuid).get(); // can throw
-    Uuid netsignalUuid = node.getValueByPath<Uuid>("net", false, Uuid());
+    Uuid netsignalUuid = node.getValueByPath<Uuid>("net");
     if (!netsignalUuid.isNull()) {
         mNetSignal = mCircuit.getNetSignalByUuid(netsignalUuid);
         if(!mNetSignal) {

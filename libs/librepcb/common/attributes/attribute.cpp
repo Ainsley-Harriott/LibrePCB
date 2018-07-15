@@ -43,9 +43,9 @@ Attribute::Attribute(const SExpression& node) :
     mKey(), mType(nullptr), mValue(), mUnit(nullptr)
 {
     mKey = node.getChildByIndex(0).getValue<QString>(true);
-    mType = &AttributeType::fromString(node.getValueByPath<QString>("type", true));
-    mUnit = mType->getUnitFromString(node.getValueByPath<QString>("unit", false));
-    mValue = node.getValueByPath<QString>("value", false);
+    mType = &AttributeType::fromString(node.getValueByPath<QString>("type"));
+    mUnit = mType->getUnitFromString(node.getValueByPath<QString>("unit"));
+    mValue = node.getValueByPath<QString>("value");
 
     // backward compatibility - remove this some time!
     mValue.replace(QRegularExpression("#([_A-Za-z][_\\|0-9A-Za-z]*)"), "{{\\1}}");

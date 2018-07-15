@@ -51,12 +51,12 @@ ComponentSymbolVariantItem::ComponentSymbolVariantItem(const Uuid& uuid,
 ComponentSymbolVariantItem::ComponentSymbolVariantItem(const SExpression& node)
 {
     // read attributes
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
-    mSymbolUuid = node.getValueByPath<Uuid>("symbol", true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
+    mSymbolUuid = node.getValueByPath<Uuid>("symbol");
     mSymbolPos = Point(node.getChildByPath("pos"));
-    mSymbolRot = node.getValueByPath<Angle>("rot", true);
-    mIsRequired = node.getValueByPath<bool>("required", true);
-    mSuffix = node.getValueByPath<QString>("suffix", false);
+    mSymbolRot = node.getValueByPath<Angle>("rot");
+    mIsRequired = node.getValueByPath<bool>("required");
+    mSuffix = node.getValueByPath<QString>("suffix");
 
     // read pin signal map
     mPinSignalMap.loadFromDomElement(node);

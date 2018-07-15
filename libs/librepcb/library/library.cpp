@@ -62,11 +62,15 @@ Library::Library(const FilePath& libDir, bool readOnly) :
     }
 
     // read properties
-    mUrl = mLoadingFileDocument.getValueByPath<QUrl>("url", false);
+    try {
+        mUrl = mLoadingFileDocument.getValueByPath<QUrl>("url");
+    } catch (const Exception& e) {
+        qWarning() << e.getMsg();
+    }
 
     // read dependency UUIDs
     foreach (const SExpression& node, mLoadingFileDocument.getChildren("dependency")) {
-        mDependencies.insert(node.getValueOfFirstChild<Uuid>(true));
+        mDependencies.insert(node.getValueOfFirstChild<Uuid>());
     }
 
     // load image if available

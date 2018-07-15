@@ -66,32 +66,32 @@ BoardFabricationOutputSettings::BoardFabricationOutputSettings(const BoardFabric
 BoardFabricationOutputSettings::BoardFabricationOutputSettings(const SExpression& node) :
     BoardFabricationOutputSettings() // init and load defaults
 {
-    mOutputBasePath        = node.getValueByPath<QString>("base_path"              , false);
-    mSuffixOutlines        = node.getValueByPath<QString>("outlines/suffix"        , false);
-    mSuffixCopperTop       = node.getValueByPath<QString>("copper_top/suffix"      , false);
-    mSuffixCopperInner     = node.getValueByPath<QString>("copper_inner/suffix"    , false);
-    mSuffixCopperBot       = node.getValueByPath<QString>("copper_bot/suffix"      , false);
-    mSuffixSolderMaskTop   = node.getValueByPath<QString>("soldermask_top/suffix"  , false);
-    mSuffixSolderMaskBot   = node.getValueByPath<QString>("soldermask_bot/suffix"  , false);
-    mSuffixSilkscreenTop   = node.getValueByPath<QString>("silkscreen_top/suffix"  , false);
-    mSuffixSilkscreenBot   = node.getValueByPath<QString>("silkscreen_bot/suffix"  , false);
-    mSuffixSolderPasteTop  = node.getValueByPath<QString>("solderpaste_top/suffix" , false);
-    mSuffixSolderPasteBot  = node.getValueByPath<QString>("solderpaste_bot/suffix" , false);
-    mSuffixDrillsPth       = node.getValueByPath<QString>("drills/suffix_pth"      , false);
-    mSuffixDrillsNpth      = node.getValueByPath<QString>("drills/suffix_npth"     , false);
-    mSuffixDrills          = node.getValueByPath<QString>("drills/suffix_merged"   , false);
-    mMergeDrillFiles       = node.getValueByPath<bool   >("drills/merge"           , false);
-    mEnableSolderPasteTop  = node.getValueByPath<bool   >("solderpaste_top/create" , false);
-    mEnableSolderPasteBot  = node.getValueByPath<bool   >("solderpaste_bot/create" , false);
+    mOutputBasePath        = node.getValueByPath<QString>("base_path");
+    mSuffixOutlines        = node.getValueByPath<QString>("outlines/suffix");
+    mSuffixCopperTop       = node.getValueByPath<QString>("copper_top/suffix");
+    mSuffixCopperInner     = node.getValueByPath<QString>("copper_inner/suffix");
+    mSuffixCopperBot       = node.getValueByPath<QString>("copper_bot/suffix");
+    mSuffixSolderMaskTop   = node.getValueByPath<QString>("soldermask_top/suffix");
+    mSuffixSolderMaskBot   = node.getValueByPath<QString>("soldermask_bot/suffix");
+    mSuffixSilkscreenTop   = node.getValueByPath<QString>("silkscreen_top/suffix");
+    mSuffixSilkscreenBot   = node.getValueByPath<QString>("silkscreen_bot/suffix");
+    mSuffixSolderPasteTop  = node.getValueByPath<QString>("solderpaste_top/suffix");
+    mSuffixSolderPasteBot  = node.getValueByPath<QString>("solderpaste_bot/suffix");
+    mSuffixDrillsPth       = node.getValueByPath<QString>("drills/suffix_pth");
+    mSuffixDrillsNpth      = node.getValueByPath<QString>("drills/suffix_npth");
+    mSuffixDrills          = node.getValueByPath<QString>("drills/suffix_merged");
+    mMergeDrillFiles       = node.getValueByPath<bool   >("drills/merge");
+    mEnableSolderPasteTop  = node.getValueByPath<bool   >("solderpaste_top/create");
+    mEnableSolderPasteBot  = node.getValueByPath<bool   >("solderpaste_bot/create");
 
     mSilkscreenLayersTop.clear();
     foreach (const SExpression& child, node.getChildByPath("silkscreen_top/layers").getChildren()) {
-        mSilkscreenLayersTop.append(child.getValue<QString>(false));
+        mSilkscreenLayersTop.append(child.getValue<QString>());
     }
 
     mSilkscreenLayersBot.clear();
     foreach (const SExpression& child, node.getChildByPath("silkscreen_bot/layers").getChildren()) {
-        mSilkscreenLayersBot.append(child.getValue<QString>(false));
+        mSilkscreenLayersBot.append(child.getValue<QString>());
     }
 }
 

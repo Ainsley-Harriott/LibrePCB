@@ -39,7 +39,7 @@ WSI_LibraryNormOrder::WSI_LibraryNormOrder(const SExpression& node) :
 {
     if (const SExpression* child = node.tryGetChildByPath("library_norm_order")) {
         foreach (const SExpression& childchild, child->getChildren()) {
-            mList.append(childchild.getValueOfFirstChild<QString>(false));
+            mList.append(childchild.getValueOfFirstChild<QString>());
         }
     }
     mList.removeDuplicates();

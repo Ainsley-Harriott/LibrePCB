@@ -45,9 +45,9 @@ SI_NetLabel::SI_NetLabel(SI_NetSegment& segment, const SExpression& node) :
     mRotation()
 {
     // read attributes
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
     mPosition = Point(node.getChildByPath("pos"));
-    mRotation = node.getValueByPath<Angle>("rot", true);
+    mRotation = node.getValueByPath<Angle>("rot");
 
     init();
 }

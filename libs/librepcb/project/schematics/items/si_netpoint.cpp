@@ -49,20 +49,20 @@ SI_NetPoint::SI_NetPoint(SI_NetSegment& segment, const SExpression& node) :
     SI_Base(segment.getSchematic()), mNetSegment(segment), mSymbolPin(nullptr)
 {
     // read attributes
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
 
     const SExpression* symNode = node.tryGetChildByPath("sym");
     const SExpression* pinNode = node.tryGetChildByPath("pin");
     const SExpression* posNode = node.tryGetChildByPath("pos");
 
     if (symNode && pinNode && (!posNode)) {
-        Uuid symbolUuid = symNode->getValueOfFirstChild<Uuid>(true);
+        Uuid symbolUuid = symNode->getValueOfFirstChild<Uuid>();
         SI_Symbol* symbol = mSchematic.getSymbolByUuid(symbolUuid);
         if (!symbol) {
             throw RuntimeError(__FILE__, __LINE__,
                 QString(tr("Invalid symbol UUID: \"%1\"")).arg(symbolUuid.toStr()));
         }
-        Uuid pinUuid = pinNode->getValueOfFirstChild<Uuid>(true);
+        Uuid pinUuid = pinNode->getValueOfFirstChild<Uuid>();
         mSymbolPin = symbol->getPin(pinUuid);
         if (!mSymbolPin) {
             throw RuntimeError(__FILE__, __LINE__,

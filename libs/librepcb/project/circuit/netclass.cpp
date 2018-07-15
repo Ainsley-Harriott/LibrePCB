@@ -40,7 +40,7 @@ namespace project {
 NetClass::NetClass(Circuit& circuit, const SExpression& node) :
     QObject(&circuit), mCircuit(circuit), mIsAddedToCircuit(false)
 {
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
     mName = node.getValueByPath<QString>("name", true);
 
     if (!checkAttributesValidity()) throw LogicError(__FILE__, __LINE__);

@@ -46,8 +46,8 @@ Device::Device(const FilePath& elementDirectory, bool readOnly) :
     LibraryElement(elementDirectory, getShortElementName(), getLongElementName(), readOnly)
 {
     // load attributes
-    mComponentUuid = mLoadingFileDocument.getValueByPath<Uuid>("component", true);
-    mPackageUuid = mLoadingFileDocument.getValueByPath<Uuid>("package", true);
+    mComponentUuid = mLoadingFileDocument.getValueByPath<Uuid>("component");
+    mPackageUuid = mLoadingFileDocument.getValueByPath<Uuid>("package");
     mAttributes.loadFromDomElement(mLoadingFileDocument); // can throw
     mPadSignalMap.loadFromDomElement(mLoadingFileDocument);
 

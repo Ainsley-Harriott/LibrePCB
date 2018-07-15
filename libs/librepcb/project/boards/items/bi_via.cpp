@@ -54,9 +54,9 @@ BI_Via::BI_Via(BI_NetSegment& netsegment, const SExpression& node) :
     BI_Base(netsegment.getBoard()), mNetSegment(netsegment)
 {
     // read attributes
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
     mPosition = Point(node.getChildByPath("pos"));
-    QString shapeStr = node.getValueByPath<QString>("shape", true);
+    QString shapeStr = node.getValueByPath<QString>("shape");
     if (shapeStr == "round") {
         mShape = Shape::Round;
     } else if (shapeStr == "square") {
@@ -67,8 +67,8 @@ BI_Via::BI_Via(BI_NetSegment& netsegment, const SExpression& node) :
         throw RuntimeError(__FILE__, __LINE__,
             QString(tr("Invalid via shape: \"%1\"")).arg(shapeStr));
     }
-    mSize = node.getValueByPath<Length>("size", true);
-    mDrillDiameter = node.getValueByPath<Length>("drill", true);
+    mSize = node.getValueByPath<Length>("size");
+    mDrillDiameter = node.getValueByPath<Length>("drill");
 
     init();
 }

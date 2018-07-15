@@ -40,7 +40,7 @@ WSI_AppLocale::WSI_AppLocale(const SExpression& node) :
     mAppLocale(), mAppLocaleTmp(mAppLocale)
 {
     if (const SExpression* child = node.tryGetChildByPath("application_locale")) {
-        mAppLocale = child->getValueOfFirstChild<QString>(false);
+        mAppLocale = child->getValueOfFirstChild<QString>();
         mAppLocaleTmp = mAppLocale;
     }
 

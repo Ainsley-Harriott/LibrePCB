@@ -51,7 +51,7 @@ LibraryElement::LibraryElement(const FilePath& elementDirectory, const QString& 
 {
     // read category UUIDs
     foreach (const SExpression& node, mLoadingFileDocument.getChildren("category")) {
-        mCategories.insert(node.getValueOfFirstChild<Uuid>(true));
+        mCategories.insert(node.getValueOfFirstChild<Uuid>());
     }
 }
 

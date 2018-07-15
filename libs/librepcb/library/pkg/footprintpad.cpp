@@ -54,12 +54,12 @@ FootprintPad::FootprintPad(const SExpression& node) :
     mRegisteredGraphicsItem(nullptr)
 {
     // read attributes
-    mPackagePadUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mPackagePadUuid = node.getChildByIndex(0).getValue<Uuid>();
     mPosition = Point(node.getChildByPath("pos"));
-    mRotation = node.getValueByPath<Angle>("rot", true);
-    mBoardSide = stringToBoardSide(node.getValueByPath<QString>("side", true));
-    mShape = stringToShape(node.getValueByPath<QString>("shape", true));
-    mDrillDiameter = node.getValueByPath<Length>("drill", true);
+    mRotation = node.getValueByPath<Angle>("rot");
+    mBoardSide = stringToBoardSide(node.getValueByPath<QString>("side"));
+    mShape = stringToShape(node.getValueByPath<QString>("shape"));
+    mDrillDiameter = node.getValueByPath<Length>("drill");
     mWidth = Point(node.getChildByPath("size")).getX();
     mHeight = Point(node.getChildByPath("size")).getY();
 

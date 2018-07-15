@@ -152,7 +152,7 @@ class Uuid final
          */
         static Uuid deserializeFromString(const QString& str) {
             Uuid uuid(str);
-            if (uuid.isNull() && (!str.isEmpty()) && (str != "null")) {
+            if (uuid.isNull() && (str != "null")) {
                 throw RuntimeError(__FILE__, __LINE__,
                                    QString(tr("Invalid UUID: \"%1\"")).arg(str));
             }

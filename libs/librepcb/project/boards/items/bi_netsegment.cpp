@@ -87,9 +87,9 @@ BI_NetSegment::BI_NetSegment(Board& board, const SExpression& node) :
 {
     try
     {
-        mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+        mUuid = node.getChildByIndex(0).getValue<Uuid>();
 
-        Uuid netSignalUuid = node.getValueByPath<Uuid>("net", true);
+        Uuid netSignalUuid = node.getValueByPath<Uuid>("net");
         mNetSignal = mBoard.getProject().getCircuit().getNetSignalByUuid(netSignalUuid);
         if(!mNetSignal) {
             throw RuntimeError(__FILE__, __LINE__,

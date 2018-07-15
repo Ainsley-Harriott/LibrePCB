@@ -48,8 +48,8 @@ DevicePadSignalMapItem::DevicePadSignalMapItem(const SExpression& node) :
     QObject(nullptr)
 {
     // read attributes
-    mPadUuid = node.getChildByIndex(0).getValue<Uuid>(true);
-    mSignalUuid = node.getValueByPath<Uuid>("sig", false);
+    mPadUuid = node.getChildByIndex(0).getValue<Uuid>();
+    mSignalUuid = node.getValueByPath<Uuid>("sig");
 
     if (!checkAttributesValidity()) throw LogicError(__FILE__, __LINE__);
 }

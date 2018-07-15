@@ -44,10 +44,10 @@ namespace project {
 NetSignal::NetSignal(Circuit& circuit, const SExpression& node) :
     QObject(&circuit), mCircuit(circuit), mIsAddedToCircuit(false), mIsHighlighted(false)
 {
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
     mName = node.getValueByPath<QString>("name", true);
-    mHasAutoName = node.getValueByPath<bool>("auto", true);
-    Uuid netclassUuid = node.getValueByPath<Uuid>("netclass", true);
+    mHasAutoName = node.getValueByPath<bool>("auto");
+    Uuid netclassUuid = node.getValueByPath<Uuid>("netclass");
     mNetClass = circuit.getNetClassByUuid(netclassUuid);
     if (!mNetClass) {
         throw RuntimeError(__FILE__, __LINE__,

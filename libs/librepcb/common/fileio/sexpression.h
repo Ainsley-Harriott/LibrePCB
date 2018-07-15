@@ -82,33 +82,36 @@ class SExpression final
         const SExpression& getChildByPath(const QString& path) const;
 
         template <typename T>
-        T getValue(bool throwIfEmpty, const T& defaultValue = T()) const
+        T getValue(bool throwIfEmpty = false) const
         {
             try {
                 if (!isToken() && !isString()) {
                     throw RuntimeError(__FILE__, __LINE__, tr("Node is not a token or string."));
                 }
-                return stringToObject<T>(mValue, throwIfEmpty, defaultValue);
+                if (mValue.isEmpty() && throwIfEmpty) {
+                    throw RuntimeError(__FILE__, __LINE__, tr("Node value is empty."));
+                }
+                return stringToObject<T>(mValue);
             } catch (const Exception& e) {
                 throw FileParseError(__FILE__, __LINE__, mFilePath, -1, -1, mValue, e.getMsg());
             }
         }
 
         template <typename T>
-        T getValueByPath(const QString& path, bool throwIfEmpty, const T& defaultValue = T()) const
+        T getValueByPath(const QString& path, bool throwIfEmpty = false) const
         {
             const SExpression& child = getChildByPath(path);
-            return child.getValueOfFirstChild<T>(throwIfEmpty, defaultValue);
+            return child.getValueOfFirstChild<T>(throwIfEmpty);
         }
 
         template <typename T>
-        T getValueOfFirstChild(bool throwIfEmpty, const T& defaultValue = T()) const
+        T getValueOfFirstChild(bool throwIfEmpty = false) const
         {
             if (mChildren.count() < 1) {
                 throw FileParseError(__FILE__, __LINE__, mFilePath, -1, -1, QString(),
                                      tr("Node does not have children."));
             }
-            return mChildren.at(0).getValue<T>(throwIfEmpty, defaultValue);
+            return mChildren.at(0).getValue<T>(throwIfEmpty);
         }
 
 
@@ -174,17 +177,13 @@ class SExpression final
          * @tparam T            Type of the object to be deserialized
          *
          * @param str           Input string
-         * @param throwIfEmpty  If true and the string is empty, an exception will be thrown.
-         *                      If false and the string is empty, defaultValue will be returned.
          *
-         * @retval T            The created element of type T
-         * @retval defaultValue If the string is empty and "throwIfEmpty == false"
+         * @return              The created element of type T
          *
          * @throws Exception if an error occurs
          */
         template <typename T>
-        static T stringToObject(const QString& str, bool throwIfEmpty,
-                                const T& defaultValue = T());
+        static T stringToObject(const QString& str);
 
 
     private: // Data
@@ -249,84 +248,58 @@ inline QString SExpression::objectToString(const T& obj) noexcept {
  ****************************************************************************************/
 
 template <>
-inline QString SExpression::stringToObject(const QString& str, bool throwIfEmpty, const QString& defaultValue) {
-    Q_UNUSED(defaultValue);
-    Q_ASSERT(defaultValue == QString()); // defaultValue makes no sense in this method
-    if (str.isEmpty() && throwIfEmpty) {
-        throw RuntimeError(__FILE__, __LINE__, tr("String is empty."));
-    }
+inline QString SExpression::stringToObject(const QString& str) {
     return str;
 }
 
 template <>
-inline bool SExpression::stringToObject(const QString& str, bool throwIfEmpty, const bool& defaultValue) {
-    QString s = stringToObject<QString>(str, throwIfEmpty);
-    if      (s == "true")   { return true;          }
-    else if (s == "false")  { return false;         }
-    else if (s.isEmpty())   { return defaultValue;  }
-    else { throw RuntimeError(__FILE__, __LINE__, tr("Not a valid boolean.")); }
+inline bool SExpression::stringToObject(const QString& str) {
+    if      (str == "true")   { return true;  }
+    else if (str == "false")  { return false; }
+    else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid boolean."));
 }
 
 template <>
-inline int SExpression::stringToObject(const QString& str, bool throwIfEmpty, const int& defaultValue) {
-    QString s = stringToObject<QString>(str, throwIfEmpty);
+inline int SExpression::stringToObject(const QString& str) {
     bool ok = false;
-    int value = s.toInt(&ok);
-    if      (ok)            { return value;         }
-    else if (s.isEmpty())   { return defaultValue;  }
-    else { throw RuntimeError(__FILE__, __LINE__, tr("Not a valid integer.")); }
+    int value = str.toInt(&ok);
+    if (ok) { return value; }
+    else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid integer."));
 }
 
 template <>
-inline uint SExpression::stringToObject(const QString& str, bool throwIfEmpty, const uint& defaultValue) {
-    QString s = stringToObject<QString>(str, throwIfEmpty);
+inline uint SExpression::stringToObject(const QString& str) {
     bool ok = false;
-    uint value = s.toUInt(&ok);
-    if (ok)                 { return value;         }
-    else if (s.isEmpty())   { return defaultValue;  }
-    else { throw RuntimeError(__FILE__, __LINE__, tr("Not a valid unsigned integer.")); }
+    uint value = str.toUInt(&ok);
+    if (ok) { return value; }
+    else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid unsigned integer."));
 }
 
 template <>
-inline QDateTime SExpression::stringToObject(const QString& str, bool throwIfEmpty, const QDateTime& defaultValue) {
-    QString s = stringToObject<QString>(str, throwIfEmpty);
-    QDateTime obj = QDateTime::fromString(s, Qt::ISODate).toLocalTime();
-    if (obj.isValid())      { return obj;           }
-    else if (s.isEmpty())   { return defaultValue;  }
-    else { throw RuntimeError(__FILE__, __LINE__, tr("Not a valid datetime.")); }
+inline QDateTime SExpression::stringToObject(const QString& str) {
+    QDateTime obj = QDateTime::fromString(str, Qt::ISODate).toLocalTime();
+    if (obj.isValid()) return obj;
+    else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid datetime."));
 }
 
 template <>
-inline QColor SExpression::stringToObject(const QString& str, bool throwIfEmpty, const QColor& defaultValue) {
-    QString s = stringToObject<QString>(str, throwIfEmpty);
-    QColor obj(s);
-    if (obj.isValid())      { return obj;           }
-    else if (s.isEmpty())   { return defaultValue;  }
-    else { throw RuntimeError(__FILE__, __LINE__, tr("Not a valid color.")); }
+inline QColor SExpression::stringToObject(const QString& str) {
+    QColor obj(str);
+    if (obj.isValid())      { return obj; }
+    else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid color."));
 }
 
 template <>
-inline QUrl SExpression::stringToObject(const QString& str, bool throwIfEmpty, const QUrl& defaultValue) {
-    QString s = stringToObject<QString>(str, throwIfEmpty);
-    QUrl obj(s, QUrl::StrictMode);
-    if (obj.isValid())      { return obj;           }
-    else if (s.isEmpty())   { return defaultValue;  }
-    else { throw RuntimeError(__FILE__, __LINE__, tr("Not a valid URL.")); }
+inline QUrl SExpression::stringToObject(const QString& str) {
+    QUrl obj(str, QUrl::StrictMode);
+    if (obj.isValid())      { return obj; }
+    else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid URL."));
 }
 
 // all other types need to have a static method "T deserializeFromString(const QString& str)"
 template <typename T>
-inline T SExpression::stringToObject(const QString& str, bool throwIfEmpty, const T& defaultValue) {
-    QString s = stringToObject<QString>(str, throwIfEmpty);
-    try {
-        return T::deserializeFromString(str); // can throw
-    } catch (const Exception& e) {
-        if (str.isEmpty()) {
-            return defaultValue;
-        } else {
-            throw;
-        }
-    }
+inline T SExpression::stringToObject(const QString& str) {
+    return T::deserializeFromString(str); // can throw
 }
 
 /*****************************************************************************************

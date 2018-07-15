@@ -39,7 +39,7 @@ WSI_ProjectAutosaveInterval::WSI_ProjectAutosaveInterval(const SExpression& node
     mInterval(600), mIntervalTmp(mInterval)
 {
     if (const SExpression* child = node.tryGetChildByPath("project_autosave_interval")) {
-        mInterval = child->getValueOfFirstChild<uint>(true);
+        mInterval = child->getValueOfFirstChild<uint>();
     }
 
     if (mInterval % 60 != 0) {

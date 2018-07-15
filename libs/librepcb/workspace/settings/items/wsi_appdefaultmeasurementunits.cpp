@@ -39,7 +39,7 @@ WSI_AppDefaultMeasurementUnits::WSI_AppDefaultMeasurementUnits(const SExpression
     mLengthUnit(LengthUnit::millimeters()), mLengthUnitTmp(mLengthUnit)
 {
     if (const SExpression* child = node.tryGetChildByPath("default_length_unit")) {
-        mLengthUnit = child->getValueOfFirstChild<LengthUnit>(true);
+        mLengthUnit = child->getValueOfFirstChild<LengthUnit>();
         mLengthUnitTmp = mLengthUnit;
     }
 

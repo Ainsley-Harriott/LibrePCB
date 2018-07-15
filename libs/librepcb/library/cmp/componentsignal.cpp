@@ -51,13 +51,13 @@ ComponentSignal::ComponentSignal(const SExpression& node) :
     QObject(nullptr)
 {
     // read attributes
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
     mName = node.getValueByPath<QString>("name", true);
-    mRole = node.getValueByPath<SignalRole>("role", true);
-    mForcedNetName = node.getValueByPath<QString>("forced_net", false);
-    mIsRequired = node.getValueByPath<bool>("required", true);
-    mIsNegated = node.getValueByPath<bool>("negated", true);
-    mIsClock = node.getValueByPath<bool>("clock", true);
+    mRole = node.getValueByPath<SignalRole>("role");
+    mForcedNetName = node.getValueByPath<QString>("forced_net");
+    mIsRequired = node.getValueByPath<bool>("required");
+    mIsNegated = node.getValueByPath<bool>("negated");
+    mIsClock = node.getValueByPath<bool>("clock");
 
     // backward compatibility - remove this some time!
     mForcedNetName.replace(QRegularExpression("#([_A-Za-z][_\\|0-9A-Za-z]*)"), "{{\\1}}");

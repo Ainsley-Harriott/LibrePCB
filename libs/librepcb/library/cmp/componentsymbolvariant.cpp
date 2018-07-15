@@ -54,8 +54,8 @@ ComponentSymbolVariant::ComponentSymbolVariant(const SExpression& node) :
     QObject(nullptr), mSymbolItems(this)
 {
     // read attributes
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
-    mNorm = node.getValueByPath<QString>("norm", false);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
+    mNorm = node.getValueByPath<QString>("norm");
     mNames.loadFromDomElement(node);
     mDescriptions.loadFromDomElement(node);
 

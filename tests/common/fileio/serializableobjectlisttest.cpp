@@ -292,8 +292,8 @@ TEST_F(SerializableObjectListTest, testSerialize)
     e.removeLineBreaks(); // we are not interested in line breaks...
     EXPECT_EQ(3,                e.getChildren().count());
     EXPECT_EQ("test",           e.getChildren()[0].getName());
-    EXPECT_EQ(mMocks[1]->mUuid, e.getChildren()[1].getValueOfFirstChild<Uuid>(false));
-    EXPECT_EQ(mMocks[2]->mName, e.getChildren()[2].getValueByPath<QString>("name", false));
+    EXPECT_EQ(mMocks[1]->mUuid, e.getChildren()[1].getValueOfFirstChild<Uuid>());
+    EXPECT_EQ(mMocks[2]->mName, e.getChildren()[2].getValueByPath<QString>("name"));
 }
 
 TEST_F(SerializableObjectListTest, testOperatorEqual)

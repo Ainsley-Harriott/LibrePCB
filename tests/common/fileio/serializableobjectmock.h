@@ -47,7 +47,7 @@ class MinimalSerializableObjectMock final : public SerializableObject
         MinimalSerializableObjectMock(const QString& value) :
             mValue(value) {}
         MinimalSerializableObjectMock(const SExpression& root) :
-            mValue(root.getValueOfFirstChild<QString>(false)) {}
+            mValue(root.getValueOfFirstChild<QString>()) {}
         MinimalSerializableObjectMock(MinimalSerializableObjectMock&& other) = delete;
         MinimalSerializableObjectMock(const MinimalSerializableObjectMock& other) = delete;
         ~MinimalSerializableObjectMock() {}
@@ -78,8 +78,8 @@ class SerializableObjectMock final : public SerializableObject
         SerializableObjectMock(const Uuid& uuid, const QString& name) :
             mUuid(uuid), mName(name) {}
         SerializableObjectMock(const SExpression& root) :
-            mUuid(root.getValueOfFirstChild<Uuid>(true)),
-            mName(root.getValueByPath<QString>("name", false)) {}
+            mUuid(root.getValueOfFirstChild<Uuid>()),
+            mName(root.getValueByPath<QString>("name")) {}
         ~SerializableObjectMock() {}
 
         const Uuid& getUuid() const noexcept {return mUuid;}

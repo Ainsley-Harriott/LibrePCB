@@ -39,9 +39,9 @@ GridProperties::GridProperties() noexcept :
 
 GridProperties::GridProperties(const SExpression& node)
 {
-    mType = stringToType(node.getValueByPath<QString>("type", true));
-    mInterval = node.getValueByPath<Length>("interval", true);
-    mUnit = node.getValueByPath<LengthUnit>("unit", true);
+    mType = stringToType(node.getValueByPath<QString>("type"));
+    mInterval = node.getValueByPath<Length>("interval");
+    mUnit = node.getValueByPath<LengthUnit>("unit");
 }
 
 GridProperties::GridProperties(Type_t type, const Length& interval, const LengthUnit& unit) noexcept :

@@ -48,9 +48,9 @@ Component::Component(const FilePath& elementDirectory, bool readOnly) :
     mSchematicOnly(false), mDefaultValue()
 {
     // Load all properties
-    mSchematicOnly = mLoadingFileDocument.getValueByPath<bool>("schematic_only", true);
+    mSchematicOnly = mLoadingFileDocument.getValueByPath<bool>("schematic_only");
     mAttributes.loadFromDomElement(mLoadingFileDocument); // can throw
-    mDefaultValue = mLoadingFileDocument.getValueByPath<QString>("default_value", false);
+    mDefaultValue = mLoadingFileDocument.getValueByPath<QString>("default_value");
     mPrefixes.loadFromDomElement(mLoadingFileDocument);
     mSignals.loadFromDomElement(mLoadingFileDocument);
     mSymbolVariants.loadFromDomElement(mLoadingFileDocument);

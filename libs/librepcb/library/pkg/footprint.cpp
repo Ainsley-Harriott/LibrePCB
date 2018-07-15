@@ -57,7 +57,7 @@ Footprint::Footprint(const SExpression& node) :
     mStrokeFont(nullptr), mRegisteredGraphicsItem(nullptr)
 {
     // read attributes
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
     mNames.loadFromDomElement(node);
     mDescriptions.loadFromDomElement(node);
 

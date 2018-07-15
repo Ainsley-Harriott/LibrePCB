@@ -53,24 +53,24 @@ Circle::Circle(const Uuid& uuid, const QString& layerName, const Length& lineWid
 Circle::Circle(const SExpression& node)
 {
     if (node.getChildByIndex(0).isString()) {
-        mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+        mUuid = node.getChildByIndex(0).getValue<Uuid>();
     } else {
         // backward compatibility, remove this some time!
         mUuid = Uuid::createRandom();
     }
     mLayerName = node.getValueByPath<QString>("layer", true);
-    mLineWidth = node.getValueByPath<Length>("width", true);
-    mIsFilled = node.getValueByPath<bool>("fill", true);
-    mIsGrabArea = node.getValueByPath<bool>("grab", true);
+    mLineWidth = node.getValueByPath<Length>("width");
+    mIsFilled = node.getValueByPath<bool>("fill");
+    mIsGrabArea = node.getValueByPath<bool>("grab");
     mCenter = Point(node.getChildByPath("pos"));
     if (node.tryGetChildByPath("dia")) {
-        mDiameter = node.getValueByPath<Length>("dia", true);
+        mDiameter = node.getValueByPath<Length>("dia");
     } else if (node.tryGetChildByPath("size")) {
         // backward compatibility, remove this some time!
         mDiameter = Point(node.getChildByPath("size")).getX();
     } else {
         // backward compatibility, remove this some time!
-        mDiameter = node.getValueByPath<Length>("rx", true) * 2;
+        mDiameter = node.getValueByPath<Length>("rx") * 2;
     }
 
     if (!checkAttributesValidity()) throw LogicError(__FILE__, __LINE__);

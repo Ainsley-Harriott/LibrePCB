@@ -53,9 +53,9 @@ GraphicsLayerStackAppearanceSettings::GraphicsLayerStackAppearanceSettings(
     for (const SExpression& child : node.getChildren("layer")) {
         QString name = child.getChildByIndex(0).getValue<QString>(true);
         if (GraphicsLayer* layer = mLayers.getLayer(name)) {
-            layer->setColor(child.getValueByPath<QColor>("color", true));
-            layer->setColorHighlighted(child.getValueByPath<QColor>("color_hl", true));
-            layer->setVisible(child.getValueByPath<bool>("visible", true));
+            layer->setColor(child.getValueByPath<QColor>("color"));
+            layer->setColorHighlighted(child.getValueByPath<QColor>("color_hl"));
+            layer->setVisible(child.getValueByPath<bool>("visible"));
         }
     }
 }

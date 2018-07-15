@@ -38,7 +38,7 @@ WSI_Appearance::WSI_Appearance(const SExpression& node) :
     WSI_Base(), mUseOpenGl(false)
 {
     if (const SExpression* child = node.tryGetChildByPath("use_opengl")) {
-        mUseOpenGl = child->getValueOfFirstChild<bool>(true);
+        mUseOpenGl = child->getValueOfFirstChild<bool>();
     }
 
     // create widgets

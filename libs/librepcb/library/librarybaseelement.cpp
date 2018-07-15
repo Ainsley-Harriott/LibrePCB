@@ -101,15 +101,15 @@ LibraryBaseElement::LibraryBaseElement(const FilePath& elementDirectory,
 
     // read attributes
     if (mLoadingFileDocument.getChildByIndex(0).isString()) {
-        mUuid = mLoadingFileDocument.getChildByIndex(0).getValue<Uuid>(true);
+        mUuid = mLoadingFileDocument.getChildByIndex(0).getValue<Uuid>();
     } else {
         // backward compatibility, remove this some time!
-        mUuid = mLoadingFileDocument.getValueByPath<Uuid>("uuid", true);
+        mUuid = mLoadingFileDocument.getValueByPath<Uuid>("uuid");
     }
-    mVersion = mLoadingFileDocument.getValueByPath<Version>("version", true);
-    mAuthor = mLoadingFileDocument.getValueByPath<QString>("author", false);
-    mCreated = mLoadingFileDocument.getValueByPath<QDateTime>("created", true);
-    mIsDeprecated = mLoadingFileDocument.getValueByPath<bool>("deprecated", true);
+    mVersion = mLoadingFileDocument.getValueByPath<Version>("version");
+    mAuthor = mLoadingFileDocument.getValueByPath<QString>("author");
+    mCreated = mLoadingFileDocument.getValueByPath<QDateTime>("created");
+    mIsDeprecated = mLoadingFileDocument.getValueByPath<bool>("deprecated");
 
     // read names, descriptions and keywords in all available languages
     mNames.loadFromDomElement(mLoadingFileDocument);

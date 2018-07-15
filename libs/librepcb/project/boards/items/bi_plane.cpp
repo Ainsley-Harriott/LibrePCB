@@ -54,23 +54,23 @@ BI_Plane::BI_Plane(Board& board, const BI_Plane& other) :
 BI_Plane::BI_Plane(Board& board, const SExpression& node) :
     BI_Base(board)
 {
-    mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    mUuid = node.getChildByIndex(0).getValue<Uuid>();
     mLayerName = node.getValueByPath<QString>("layer", true);
-    Uuid netSignalUuid = node.getValueByPath<Uuid>("net", true);
+    Uuid netSignalUuid = node.getValueByPath<Uuid>("net");
     mNetSignal = mBoard.getProject().getCircuit().getNetSignalByUuid(netSignalUuid);
     if(!mNetSignal) {
         throw RuntimeError(__FILE__, __LINE__,
             QString(tr("Invalid net signal UUID: \"%1\"")).arg(netSignalUuid.toStr()));
     }
-    mMinWidth = node.getValueByPath<Length>("min_width", true);
-    mMinClearance = node.getValueByPath<Length>("min_clearance", true);
-    mKeepOrphans = node.getValueByPath<bool>("keep_orphans", true);
-    mPriority = node.getValueByPath<int>("priority", true);
-    if (node.getValueByPath<QString>("connect_style", true) == "none") {
+    mMinWidth = node.getValueByPath<Length>("min_width");
+    mMinClearance = node.getValueByPath<Length>("min_clearance");
+    mKeepOrphans = node.getValueByPath<bool>("keep_orphans");
+    mPriority = node.getValueByPath<int>("priority");
+    if (node.getValueByPath<QString>("connect_style") == "none") {
         mConnectStyle = ConnectStyle::None;
     //} else if (node.getValueByPath<QString>("connect_style", true) == "thermal") {
     //    mConnectStyle = ConnectStyle::Thermal;
-    } else if (node.getValueByPath<QString>("connect_style", true) == "solid") {
+    } else if (node.getValueByPath<QString>("connect_style") == "solid") {
         mConnectStyle = ConnectStyle::Solid;
     } else {
         throw RuntimeError(__FILE__, __LINE__, tr("Unknown plane connect style."));

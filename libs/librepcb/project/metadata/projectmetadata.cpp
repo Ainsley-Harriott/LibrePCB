@@ -57,15 +57,15 @@ ProjectMetadata::ProjectMetadata(Project& project, bool restore, bool readOnly, 
         SExpression root = mFile->parseFileAndBuildDomTree();
 
         if (root.getChildByIndex(0).isString()) {
-            mUuid = root.getChildByIndex(0).getValue<Uuid>(true);
+            mUuid = root.getChildByIndex(0).getValue<Uuid>();
         } else {
             // backward compatibility, remove this some time!
             mUuid = Uuid::createRandom();
         }
-        mName = root.getValueByPath<QString>("name", false);
-        mAuthor = root.getValueByPath<QString>("author", false);
-        mVersion = root.getValueByPath<QString>("version", false);
-        mCreated = root.getValueByPath<QDateTime>("created", true);
+        mName = root.getValueByPath<QString>("name");
+        mAuthor = root.getValueByPath<QString>("author");
+        mVersion = root.getValueByPath<QString>("version");
+        mCreated = root.getValueByPath<QDateTime>("created");
         mAttributes.loadFromDomElement(root); // can throw
     }
 

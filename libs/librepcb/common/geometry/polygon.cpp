@@ -54,15 +54,15 @@ Polygon::Polygon(const Uuid& uuid, const QString& layerName, const Length& lineW
 Polygon::Polygon(const SExpression& node)
 {
     if (node.getChildByIndex(0).isString()) {
-        mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+        mUuid = node.getChildByIndex(0).getValue<Uuid>();
     } else {
         // backward compatibility, remove this some time!
         mUuid = Uuid::createRandom();
     }
     mLayerName = node.getValueByPath<QString>("layer", true);
-    mLineWidth = node.getValueByPath<Length>("width", true);
-    mIsFilled = node.getValueByPath<bool>("fill", true);
-    mIsGrabArea = node.getValueByPath<bool>("grab", true);
+    mLineWidth = node.getValueByPath<Length>("width");
+    mIsFilled = node.getValueByPath<bool>("fill");
+    mIsGrabArea = node.getValueByPath<bool>("grab");
 
     // load vertices
     if (!node.tryGetChildByPath("pos")) {
@@ -71,7 +71,7 @@ Polygon::Polygon(const SExpression& node)
         // backward compatibility, remove this some time!
         mPath.addVertex(Point(node.getChildByPath("pos")));
         foreach (const SExpression& child, node.getChildren("segment")) {
-            mPath.getVertices().last().setAngle(child.getValueByPath<Angle>("angle", true));
+            mPath.getVertices().last().setAngle(child.getValueByPath<Angle>("angle"));
             mPath.addVertex(Point(child.getChildByPath("pos")));
         }
     }

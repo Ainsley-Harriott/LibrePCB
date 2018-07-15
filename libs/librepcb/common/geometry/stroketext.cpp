@@ -61,8 +61,8 @@ StrokeText::StrokeText(const Uuid& uuid, const QString& layerName, const QString
 StrokeText::StrokeText(const SExpression& node) :
     mAttributeProvider(nullptr), mFont(nullptr)
 {
-    if (!Uuid(node.getChildByIndex(0).getValue<QString>(false)).isNull()) {
-        mUuid = node.getChildByIndex(0).getValue<Uuid>(true);
+    if (!Uuid(node.getChildByIndex(0).getValue<QString>()).isNull()) {
+        mUuid = node.getChildByIndex(0).getValue<Uuid>();
         mText = node.getValueByPath<QString>("value", true);
     } else {
         // backward compatibility, remove this some time!
@@ -73,37 +73,37 @@ StrokeText::StrokeText(const SExpression& node) :
 
     // load geometry attributes
     mPosition = Point(node.getChildByPath("pos"));
-    mRotation = node.getValueByPath<Angle>("rot", true);
-    mHeight = node.getValueByPath<Length>("height", true);
+    mRotation = node.getValueByPath<Angle>("rot");
+    mHeight = node.getValueByPath<Length>("height");
     if (!(mHeight > 0)) {
         throw RuntimeError(__FILE__, __LINE__, tr("The height of a text element is <= 0."));
     }
     if (const SExpression* child = node.tryGetChildByPath("stroke_width")) {
-        mStrokeWidth = child->getValueOfFirstChild<Length>(true);
+        mStrokeWidth = child->getValueOfFirstChild<Length>();
     } else {
         // backward compatibility, remove this some time!
         mStrokeWidth = Length(200000);
     }
     if (const SExpression* child = node.tryGetChildByPath("letter_spacing")) {
-        mLetterSpacing = child->getValueOfFirstChild<StrokeTextSpacing>(true);
+        mLetterSpacing = child->getValueOfFirstChild<StrokeTextSpacing>();
     } else {
         // backward compatibility, remove this some time!
         mLetterSpacing = StrokeTextSpacing();
     }
     if (const SExpression* child = node.tryGetChildByPath("line_spacing")) {
-        mLineSpacing = child->getValueOfFirstChild<StrokeTextSpacing>(true);
+        mLineSpacing = child->getValueOfFirstChild<StrokeTextSpacing>();
     } else {
         // backward compatibility, remove this some time!
         mLineSpacing = StrokeTextSpacing();
     }
     if (const SExpression* child = node.tryGetChildByPath("mirror")) {
-        mMirrored = child->getValueOfFirstChild<bool>(true);
+        mMirrored = child->getValueOfFirstChild<bool>();
     } else {
         // backward compatibility, remove this some time!
         mMirrored = false;
     }
     if (const SExpression* child = node.tryGetChildByPath("auto_rotate")) {
-        mAutoRotate = child->getValueOfFirstChild<bool>(true);
+        mAutoRotate = child->getValueOfFirstChild<bool>();
     } else {
         // backward compatibility, remove this some time!
         mAutoRotate = true;

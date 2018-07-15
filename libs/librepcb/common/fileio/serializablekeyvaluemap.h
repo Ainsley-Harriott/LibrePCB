@@ -100,11 +100,11 @@ class SerializableKeyValueMap final : public SerializableObject
             foreach (const SExpression& child, node.getChildren(T::tagname)) {
                 QString key, value;
                 if (child.getChildren().count() > 1) {
-                    key = child.getValueByPath<QString>(T::keyname, false);
-                    value = child.getChildByIndex(1).getValue<QString>(false);
+                    key = child.getValueByPath<QString>(T::keyname);
+                    value = child.getChildByIndex(1).getValue<QString>();
                 } else {
                     key = QString("");
-                    value = child.getChildByIndex(0).getValue<QString>(false);
+                    value = child.getChildByIndex(0).getValue<QString>();
                 }
                 if (mValues.contains(key)) {
                     throw RuntimeError(__FILE__, __LINE__,
