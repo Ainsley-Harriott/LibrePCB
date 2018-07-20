@@ -51,11 +51,15 @@ BI_Via::BI_Via(BI_NetSegment& netsegment, const BI_Via& other) :
 }
 
 BI_Via::BI_Via(BI_NetSegment& netsegment, const SExpression& node) :
-    BI_Base(netsegment.getBoard()), mNetSegment(netsegment)
+    BI_Base(netsegment.getBoard()),
+    mNetSegment(netsegment),
+    mUuid(node.getChildByIndex(0).getValue<Uuid>()),
+    mPosition(node.getChildByPath("pos")),
+    mShape(),
+    mSize(node.getValueByPath<Length>("size")),
+    mDrillDiameter(node.getValueByPath<Length>("drill"))
 {
     // read attributes
-    mUuid = node.getChildByIndex(0).getValue<Uuid>();
-    mPosition = Point(node.getChildByPath("pos"));
     QString shapeStr = node.getValueByPath<QString>("shape");
     if (shapeStr == "round") {
         mShape = Shape::Round;
@@ -67,8 +71,6 @@ BI_Via::BI_Via(BI_NetSegment& netsegment, const SExpression& node) :
         throw RuntimeError(__FILE__, __LINE__,
             QString(tr("Invalid via shape: \"%1\"")).arg(shapeStr));
     }
-    mSize = node.getValueByPath<Length>("size");
-    mDrillDiameter = node.getValueByPath<Length>("drill");
 
     init();
 }
@@ -90,8 +92,6 @@ void BI_Via::init()
     // connect to the "attributes changed" signal of the board
     connect(&mBoard, &Board::attributesChanged,
             this, &BI_Via::boardAttributesChanged);
-
-    if (!checkAttributesValidity()) throw LogicError(__FILE__, __LINE__);
 }
 
 BI_Via::~BI_Via() noexcept
@@ -235,8 +235,6 @@ void BI_Via::updateNetPoints() const noexcept
 
 void BI_Via::serialize(SExpression& root) const
 {
-    if (!checkAttributesValidity()) throw LogicError(__FILE__, __LINE__);
-
     root.appendToken(mUuid);
     root.appendChild(mPosition.serializeToDomElement("pos"), true);
     root.appendTokenChild("size", mSize, false);
@@ -276,12 +274,6 @@ void BI_Via::setSelected(bool selected) noexcept
 void BI_Via::boardAttributesChanged()
 {
     mGraphicsItem->updateCacheAndRepaint();
-}
-
-bool BI_Via::checkAttributesValidity() const noexcept
-{
-    if (mUuid.isNull())                             return false;
-    return true;
 }
 
 /*****************************************************************************************
