@@ -24,6 +24,7 @@
  *  Includes
  ****************************************************************************************/
 #include <QtCore>
+#include <optional/tl/optional.hpp>
 #include "exceptions.h"
 
 /*****************************************************************************************
@@ -44,11 +45,12 @@ namespace librepcb {
  *
  * A valid UUID looks like this: "d79d354b-62bd-4866-996a-78941c575e78"
  *
+ * @note This class guarantees that only Uuid objects representing a valid UUID can be
+ *       created (in opposite to QUuid which allows "Null UUIDs")! If you need a nullable
+ *       UUID, use tl::optional<librepcb::Uuid> instead.
+ *
  * @see https://de.wikipedia.org/wiki/Universally_Unique_Identifier
  * @see https://tools.ietf.org/html/rfc4122
- *
- * @author ubruhin
- * @date 2015-09-29
  */
 class Uuid final
 {
@@ -56,19 +58,18 @@ class Uuid final
 
     public:
 
+        /// Used for serialization/deserialization of tl::optional<Uuid>
+        ///
+        /// @warning Do not change! Would break all S-Expression files!
+        static constexpr const char* sRepresentationOfNull = "null";
+
+
         // Constructors / Destructor
 
         /**
-         * @brief Default constructor (creates a NULL #Uuid object)
+         * @brief Default constructor (disabled to avoid creating invalid UUIDs)
          */
-        Uuid() noexcept : mUuid() {}
-
-        /**
-         * @brief Constructor which creates a #Uuid object from a string
-         *
-         * @param uuid      The uuid as a string (without braces)
-         */
-        explicit Uuid(const QString& uuid) noexcept : mUuid() {setUuid(uuid);}
+        Uuid() = delete;
 
         /**
          * @brief Copy constructor
@@ -86,13 +87,6 @@ class Uuid final
         // Getters
 
         /**
-         * @brief Check whether this object represents a NULL UUID or a valid UUID
-         *
-         * @return true if NULL/invalid UUID, false if valid UUID
-         */
-        bool isNull() const noexcept {return mUuid.isEmpty();}
-
-        /**
          * @brief Get the UUID as a string (without braces)
          *
          * @return The UUID as a string
@@ -104,21 +98,7 @@ class Uuid final
          *
          * @return This object as a string
          */
-        QString serializeToString() const noexcept {return isNull() ? "null" : toStr();}
-
-
-        // Setters
-
-        /**
-         * @brief Set a new UUID
-         *
-         * @param uuid  The uuid as a string (without braces)
-         *
-         * @return true if uuid was valid, false if not (=> NULL UUID)
-         *
-         * @note If this method returns false, the UUID becames invalid (#isNull() = true)
-         */
-        bool setUuid(const QString& uuid) noexcept;
+        QString serializeToString() const noexcept {return toStr();}
 
 
         //@{
@@ -142,22 +122,14 @@ class Uuid final
         // Static Methods
 
         /**
-         * @brief Deserialize object from a string
+         * @brief Check if a string is a valid UUID
          *
-         * @param str           Input string
+         * @param str       The string to check
          *
-         * @return The created element
-         *
-         * @throws Exception if the string was invalid
+         * @retval true     If str is a valid UUID
+         * @retval false    If str is not a valid UUID
          */
-        static Uuid deserializeFromString(const QString& str) {
-            Uuid uuid(str);
-            if (uuid.isNull() && (str != "null")) {
-                throw RuntimeError(__FILE__, __LINE__,
-                                   QString(tr("Invalid UUID: \"%1\"")).arg(str));
-            }
-            return uuid;
-        }
+        static bool isValid(const QString& str) noexcept;
 
         /**
          * @brief Create a new random UUID
@@ -166,11 +138,51 @@ class Uuid final
          */
         static Uuid createRandom() noexcept;
 
+        /**
+         * @brief Create Uuid from a string
+         *
+         * @param str           Input string
+         *
+         * @return The created Uuid object
+         *
+         * @throws Exception if the string does not contain a valid UUID
+         */
+        static Uuid fromString(const QString& str);
 
-    private:
+        /**
+         * @brief Deserialize object from a string
+         *
+         * @param str           Input string
+         *
+         * @return The created Uuid object
+         *
+         * @throws Exception if the string does not contain a valid UUID
+         */
+        static Uuid deserializeFromString(const QString& str) {return fromString(str);}
 
-        // Private Attributes
-        QString mUuid;
+        /**
+         * @brief Try creating a Uuid from a string, returning empty optional if invalid
+         *
+         * @param str           Input string
+         *
+         * @retval Uuid         The created Uuid object if str was valid
+         * @retval tl::nullopt  If str was not a valid UUID
+         */
+        static tl::optional<Uuid> tryFromString(const QString& str) noexcept;
+
+
+    private: // Methods
+
+        /**
+         * @brief Constructor which creates a Uuid object from a string
+         *
+         * @param str       The uuid as a string (lowercase and without braces)
+         */
+        explicit Uuid(const QString& str) noexcept : mUuid(str) {}
+
+
+    private: // Data
+        QString mUuid; ///< Guaranteed to always contain a valid UUID
 };
 
 /*****************************************************************************************

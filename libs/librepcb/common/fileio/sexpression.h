@@ -25,6 +25,7 @@
  ****************************************************************************************/
 #include <QtCore>
 #include <QtWidgets>
+#include <optional/tl/optional.hpp>
 #include "filepath.h"
 #include "../exceptions.h"
 
@@ -91,7 +92,7 @@ class SExpression final
                 if (mValue.isEmpty() && throwIfEmpty) {
                     throw RuntimeError(__FILE__, __LINE__, tr("Node value is empty."));
                 }
-                return stringToObject<T>(mValue);
+                return stringToObject(mValue, static_cast<T*>(nullptr));
             } catch (const Exception& e) {
                 throw FileParseError(__FILE__, __LINE__, mFilePath, -1, -1, mValue, e.getMsg());
             }
@@ -170,6 +171,8 @@ class SExpression final
          */
         template <typename T>
         static QString objectToString(const T& obj) noexcept;
+        template <typename T>
+        static QString objectToString(const tl::optional<T>& obj) noexcept;
 
         /**
          * @brief Deserialization template method
@@ -177,13 +180,16 @@ class SExpression final
          * @tparam T            Type of the object to be deserialized
          *
          * @param str           Input string
+         * @param dummy         Used only for overload resolution (pass nullptr here)
          *
          * @return              The created element of type T
          *
          * @throws Exception if an error occurs
          */
         template <typename T>
-        static T stringToObject(const QString& str);
+        static T stringToObject(const QString& str, T* dummy);
+        template <typename T>
+        static tl::optional<T> stringToObject(const QString& str, tl::optional<T>* dummy);
 
 
     private: // Data
@@ -243,24 +249,33 @@ inline QString SExpression::objectToString(const T& obj) noexcept {
     return obj.serializeToString();
 }
 
+template <typename T>
+inline QString SExpression::objectToString(const tl::optional<T>& obj) noexcept {
+    if (obj) {
+        return obj->serializeToString();
+    } else {
+        return T::sRepresentationOfNull;
+    }
+}
+
 /*****************************************************************************************
  *  Deserialization Methods
  ****************************************************************************************/
 
 template <>
-inline QString SExpression::stringToObject(const QString& str) {
+inline QString SExpression::stringToObject(const QString& str, QString*) {
     return str;
 }
 
 template <>
-inline bool SExpression::stringToObject(const QString& str) {
+inline bool SExpression::stringToObject(const QString& str, bool*) {
     if      (str == "true")   { return true;  }
     else if (str == "false")  { return false; }
     else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid boolean."));
 }
 
 template <>
-inline int SExpression::stringToObject(const QString& str) {
+inline int SExpression::stringToObject(const QString& str, int*) {
     bool ok = false;
     int value = str.toInt(&ok);
     if (ok) { return value; }
@@ -268,7 +283,7 @@ inline int SExpression::stringToObject(const QString& str) {
 }
 
 template <>
-inline uint SExpression::stringToObject(const QString& str) {
+inline uint SExpression::stringToObject(const QString& str, uint*) {
     bool ok = false;
     uint value = str.toUInt(&ok);
     if (ok) { return value; }
@@ -276,21 +291,21 @@ inline uint SExpression::stringToObject(const QString& str) {
 }
 
 template <>
-inline QDateTime SExpression::stringToObject(const QString& str) {
+inline QDateTime SExpression::stringToObject(const QString& str, QDateTime*) {
     QDateTime obj = QDateTime::fromString(str, Qt::ISODate).toLocalTime();
     if (obj.isValid()) return obj;
     else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid datetime."));
 }
 
 template <>
-inline QColor SExpression::stringToObject(const QString& str) {
+inline QColor SExpression::stringToObject(const QString& str, QColor*) {
     QColor obj(str);
     if (obj.isValid())      { return obj; }
     else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid color."));
 }
 
 template <>
-inline QUrl SExpression::stringToObject(const QString& str) {
+inline QUrl SExpression::stringToObject<QUrl>(const QString& str, QUrl*) {
     QUrl obj(str, QUrl::StrictMode);
     if (obj.isValid())      { return obj; }
     else throw RuntimeError(__FILE__, __LINE__, tr("Not a valid URL."));
@@ -298,8 +313,17 @@ inline QUrl SExpression::stringToObject(const QString& str) {
 
 // all other types need to have a static method "T deserializeFromString(const QString& str)"
 template <typename T>
-inline T SExpression::stringToObject(const QString& str) {
+inline T SExpression::stringToObject(const QString& str, T*) {
     return T::deserializeFromString(str); // can throw
+}
+
+template <typename T>
+inline tl::optional<T> SExpression::stringToObject(const QString& str, tl::optional<T>*) {
+    if (str == T::sRepresentationOfNull) {
+        return tl::nullopt;
+    } else {
+        return T::deserializeFromString(str); // can throw
+    }
 }
 
 /*****************************************************************************************
