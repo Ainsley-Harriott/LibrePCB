@@ -64,7 +64,9 @@ LibraryBaseElement::LibraryBaseElement(const FilePath& elementDirectory,
                                        const QString& longElementName, bool readOnly) :
     QObject(nullptr), mDirectory(elementDirectory),mDirectoryIsTemporary(false),
     mOpenedReadOnly(readOnly), mDirectoryNameMustBeUuid(dirnameMustBeUuid),
-    mShortElementName(shortElementName), mLongElementName(longElementName)
+    mShortElementName(shortElementName), mLongElementName(longElementName),
+
+    mUuid(Uuid::createRandom()) // TODO
 {
     // determine the filepath to the version file
     FilePath versionFilePath = mDirectory.getPathTo(".librepcb-" % mShortElementName);
@@ -77,8 +79,8 @@ LibraryBaseElement::LibraryBaseElement(const FilePath& elementDirectory,
     }
 
     // check directory name
-    Uuid dirUuid(mDirectory.getFilename());
-    if (mDirectoryNameMustBeUuid && dirUuid.isNull()) {
+    QString dirUuidStr = mDirectory.getFilename();
+    if (mDirectoryNameMustBeUuid && (!Uuid::isValid(dirUuidStr))) {
         throw RuntimeError(__FILE__, __LINE__,
             QString(tr("Directory name is not a valid UUID: \"%1\""))
             .arg(mDirectory.toNative()));
@@ -117,8 +119,8 @@ LibraryBaseElement::LibraryBaseElement(const FilePath& elementDirectory,
     mKeywords.loadFromDomElement(mLoadingFileDocument);
 
     // check if the UUID equals to the directory basename
-    if (mDirectoryNameMustBeUuid && (mUuid != dirUuid)) {
-        qDebug() << mUuid << "!=" << dirUuid;
+    if (mDirectoryNameMustBeUuid && (mUuid.toStr() != dirUuidStr)) {
+        qDebug() << mUuid.toStr() << "!=" << dirUuidStr;
         throw RuntimeError(__FILE__, __LINE__,
             QString(tr("UUID mismatch between element directory and main file: \"%1\""))
             .arg(sexprFilePath.toNative()));
@@ -265,7 +267,6 @@ void LibraryBaseElement::serialize(SExpression& root) const
 
 bool LibraryBaseElement::checkAttributesValidity() const noexcept
 {
-    if (mUuid.isNull())                     return false;
     if (!mVersion.isValid())                return false;
     if (mNames.getDefaultValue().isEmpty()) return false;
     return true;

@@ -71,7 +71,7 @@ namespace project {
 
 Board::Board(const Board& other, const FilePath& filepath, const QString& name) :
     QObject(&other.getProject()), mProject(other.getProject()), mFilePath(filepath),
-    mIsAddedToProject(false)
+    mIsAddedToProject(false), mUuid(Uuid::createRandom())
 {
     try
     {
@@ -81,7 +81,6 @@ Board::Board(const Board& other, const FilePath& filepath, const QString& name) 
         mFile.reset(SmartSExprFile::create(mFilePath));
 
         // set attributes
-        mUuid = Uuid::createRandom();
         mName = name;
         mDefaultFontFileName = other.mDefaultFontFileName;
 
@@ -177,7 +176,9 @@ Board::Board(const Board& other, const FilePath& filepath, const QString& name) 
 
 Board::Board(Project& project, const FilePath& filepath, bool restore,
              bool readOnly, bool create, const QString& newName) :
-    QObject(&project), mProject(project), mFilePath(filepath), mIsAddedToProject(false)
+    QObject(&project), mProject(project), mFilePath(filepath), mIsAddedToProject(false),
+
+    mUuid(Uuid::createRandom()) // TODO
 {
     try
     {
@@ -955,7 +956,6 @@ void Board::updateIcon() noexcept
 
 bool Board::checkAttributesValidity() const noexcept
 {
-    if (mUuid.isNull())     return false;
     if (mName.isEmpty())    return false;
     return true;
 }
