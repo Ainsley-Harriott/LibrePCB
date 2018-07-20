@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>563</width>
-    <height>465</height>
+    <width>440</width>
+    <height>438</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -90,9 +90,6 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetMinimumSize</enum>
-     </property>
      <property name="topMargin">
       <number>8</number>
      </property>
@@ -108,7 +105,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tabGeneral">
         <attribute name="title">
@@ -117,9 +114,6 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <layout class="QVBoxLayout" name="tabGeneralLayout">
-           <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
-           </property>
            <item>
             <widget class="QLabel" name="textIntro">
              <property name="text">
@@ -174,7 +168,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer">
+            <spacer name="spacerGeneral">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -197,9 +191,6 @@
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <layout class="QVBoxLayout" name="tabContributingLayout">
-           <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
-           </property>
            <item>
             <widget class="QLabel" name="textContributingIntro">
              <property name="text">
@@ -280,7 +271,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer_2">
+            <spacer name="spacerContributing">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
